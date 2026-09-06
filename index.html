@@ -419,6 +419,12 @@ function render(){
   if (p[0] === 'dashboard') {
     markNotificationsRead();
   }
+  if (p[0] === 'register') {
+    updateRegisterYears();
+  }
+  if (p[0] === 'profile') {
+    updateProfileYears();
+  }
 
   if (afterRender) {
     var f = afterRender;
@@ -486,13 +492,97 @@ function itemCard(i){
     '<div class="muted" style="font-size:12.5px;margin-top:6px">📍 ' + esc(i.location) + (o ? ' · ' + esc(o.name) : '') + '</div></div>';
 }
 
+/* ---------- Course & Year of Study Helper ---------- */
+function getCourseYears(courseName, branchName){
+  var c = String(courseName || '').toLowerCase().trim();
+  var b = String(branchName || '').toLowerCase().trim();
+
+  // B.Tech / Bachelor of Technology is strictly a 4-year course
+  if (c.indexOf('b.tech') > -1 || c.indexOf('btech') > -1 || c.indexOf('bachelor of technology') > -1 ||
+      b.indexOf('b.tech') > -1 || b.indexOf('btech') > -1 || b.indexOf('bachelor of technology') > -1 ||
+      c === 'b.tech' || c === 'btech') {
+    return {
+      duration: '4 Years',
+      years: ['1st Year', '2nd Year', '3rd Year', '4th Year']
+    };
+  }
+
+  // B.E. / Engineering - 4 years
+  if (c.indexOf('b.e') > -1 || c.indexOf('be') > -1 || b.indexOf('b.e') > -1) {
+    return {
+      duration: '4 Years',
+      years: ['1st Year', '2nd Year', '3rd Year', '4th Year']
+    };
+  }
+
+  // M.Tech / MBA / MCA / M.Sc - 2 years
+  if (c.indexOf('m.tech') > -1 || c.indexOf('mba') > -1 || c.indexOf('mca') > -1 || c.indexOf('m.sc') > -1) {
+    return {
+      duration: '2 Years',
+      years: ['1st Year', '2nd Year']
+    };
+  }
+
+  // 3-year undergraduate courses
+  if (c.indexOf('b.sc') > -1 || c.indexOf('bca') > -1 || c.indexOf('b.com') > -1 || c.indexOf('bba') > -1) {
+    return {
+      duration: '3 Years',
+      years: ['1st Year', '2nd Year', '3rd Year']
+    };
+  }
+
+  // 5-year courses (Dual degree, Integrated M.Tech, B.Arch, MBBS)
+  if (c.indexOf('dual') > -1 || c.indexOf('integrated') > -1 || c.indexOf('arch') > -1 || c.indexOf('mbbs') > -1 || c.indexOf('5') > -1) {
+    return {
+      duration: '5 Years',
+      years: ['1st Year', '2nd Year', '3rd Year', '4th Year', '5th Year']
+    };
+  }
+
+  // Default fallback
+  return {
+    duration: '4 Years',
+    years: ['1st Year', '2nd Year', '3rd Year', '4th Year']
+  };
+}
+
+function updateRegisterYears(){
+  var courseEl = document.getElementById('regCourse');
+  var branchEl = document.querySelector('#regForm input[name="branch"]');
+  var yearEl = document.getElementById('regYearSelect') || document.querySelector('#regForm select[name="year"]');
+  var durEl = document.getElementById('courseDurationText');
+  if (!yearEl) return;
+
+  var cVal = courseEl ? courseEl.value : 'B.Tech';
+  var bVal = branchEl ? branchEl.value : '';
+  var data = getCourseYears(cVal, bVal);
+  if (durEl) durEl.textContent = 'Course Duration: ' + data.duration;
+  var currentYearVal = yearEl.value;
+  var html = '<option value="">Select year</option>';
+  data.years.forEach(function(y){
+    var isSel = (currentYearVal === y);
+    html += '<option value="' + y + '"' + (isSel ? ' selected' : '') + '>' + y + '</option>';
+  });
+  yearEl.innerHTML = html;
+}
+
 /* ---------- Authentication Forms & Logic ---------- */
 function viewRegister(){
+  var defaultCourse = 'B.Tech';
+  var initialData = getCourseYears(defaultCourse, '');
   return '<div class="container section"><div class="card pad" style="max-width:540px;margin:0 auto">' +
     '<h2>Create your student account</h2><p class="muted">Only college students can join RentShare.</p>' +
     '<form id="regForm" novalidate>' +
-    fld('Full Name', 'name') + fld('College Name', 'college') + fld('Branch', 'branch') +
-    '<label>Year of Study</label><select name="year"><option value="">Select year</option>' + [1, 2, 3, 4, 5].map(function(y){ return '<option>' + y + '</option>'; }).join('') + '</select><div class="err" data-e="year"></div>' +
+    fld('Full Name', 'name') + fld('College Name', 'college') +
+    '<label>Course</label><select name="course" id="regCourse" onchange="updateRegisterYears()">' +
+    ['B.Tech', 'B.E.', 'B.Sc', 'BCA', 'B.Com', 'BBA', 'M.Tech', 'MCA', 'MBA', 'Dual Degree', 'Other'].map(function(c){
+      return '<option value="' + c + '"' + (c === defaultCourse ? ' selected' : '') + '>' + c + '</option>';
+    }).join('') + '</select><div class="err" data-e="course"></div>' +
+    fld('Branch', 'branch') +
+    '<div class="between"><label style="margin:14px 0 6px">Year of Study</label><span class="muted" style="font-size:12px;margin-top:14px" id="courseDurationText">Course Duration: ' + initialData.duration + '</span></div>' +
+    '<select name="year" id="regYearSelect"><option value="">Select year</option>' + initialData.years.map(function(y){
+      return '<option value="' + y + '">' + y + '</option>';
+    }).join('') + '</select><div class="err" data-e="year"></div>' +
     fld('College Email', 'email', 'email') + fld('Password', 'password', 'password') + fld('Confirm Password', 'confirm', 'password') +
     '<button class="btn" style="margin-top:16px;width:100%" type="submit">Register</button></form>' +
     '<p class="muted" style="margin-top:12px">Already have an account? <a data-nav href="#/login" style="color:var(--primary);font-weight:650">Login</a></p></div></div>';
@@ -519,8 +609,15 @@ document.addEventListener('submit', function(e){
 
 async function doRegister(f){
   var d = {}, errs = {};
-  ['name','college','branch','year','email','password','confirm'].forEach(function(n){ d[n] = val(f, n); });
+  ['name','college','course','branch','year','email','password','confirm'].forEach(function(n){ d[n] = val(f, n); });
   ['name','college','branch','year','email','password'].forEach(function(n){ if (!d[n]) errs[n] = 'This field is required.'; });
+
+  var courseName = d.course || 'B.Tech';
+  var courseInfo = getCourseYears(courseName, d.branch);
+  if (d.year && courseInfo.years.indexOf(d.year) < 0 && courseInfo.years.map(function(y){ return y.replace(/[^0-9]/g, ''); }).indexOf(d.year) < 0) {
+    errs.year = courseName + ' is a ' + courseInfo.duration + ' course. Maximum year allowed is ' + courseInfo.years[courseInfo.years.length - 1] + '.';
+  }
+
   if (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)) errs.email = 'Enter a valid email address.';
   if (d.password && d.password.length < 6) errs.password = 'Password must be at least 6 characters.';
   if (d.password && d.confirm !== d.password) errs.confirm = 'Passwords do not match.';
@@ -539,6 +636,7 @@ async function doRegister(f){
       id: uid,
       name: d.name,
       college: d.college,
+      course: courseName,
       branch: d.branch,
       year: d.year,
       email: d.email,
@@ -810,7 +908,7 @@ function viewItem(p){
     '<div class="row" style="margin:8px 0"><span class="badge b">' + esc(i.category) + '</span><span class="badge">Condition: ' + esc(i.condition) + '</span>' + (revs.length ? '<span class="badge">★ ' + avg.toFixed(1) + ' (' + revs.length + ')' : '') + '</div>' +
     '<p class="muted">' + esc(i.description) + '</p>' +
     '<table><tr><th>Price per hour</th><td>' + money(i.perHour) + '</td></tr><tr><th>Price per day</th><td>' + money(i.perDay) + '</td></tr><tr><th>Security deposit</th><td>' + money(i.deposit) + '</td></tr><tr><th>Pickup location</th><td>' + esc(i.location) + '</td></tr>' +
-    (o ? '<tr><th>Owner</th><td>' + esc(o.name) + ' · ' + esc(o.branch || '') + ', Year ' + esc(o.year || '') + '<br><span class="muted">' + esc(o.college || '') + '</span></td></tr>' : '') + '</table>' +
+    (o ? '<tr><th>Owner</th><td>' + esc(o.name) + ' · ' + esc(o.course ? o.course + ' ' : '') + esc(o.branch || '') + (o.year ? ', ' + esc(String(o.year).indexOf('Year') > -1 ? o.year : 'Year ' + o.year) : '') + '<br><span class="muted">' + esc(o.college || '') + '</span></td></tr>' : '') + '</table>' +
     '<div id="itemBookingsBox" style="margin-top:12px;font-size:13px;padding:10px;border-radius:9px;background:var(--surface-2)">Checking booking availability…</div>' +
     '<div class="row" style="margin-top:14px">' +
     (isOwner ? '<a class="btn ghost" data-nav href="#/edit/' + i.id + '">Edit item</a><a class="btn ghost" data-nav href="#/dashboard">View requests</a><span class="muted" style="font-size:13px">You listed this item, so you cannot rent it.</span>'
@@ -1034,7 +1132,7 @@ function viewDashboard(){
   var req = incoming.filter(function(r){ return r.status === 'Requested'; });
 
   return '<div class="container section"><h2>Hello, ' + esc((u.name || 'Student').split(' ')[0]) + '</h2>' +
-    '<p class="muted">' + esc(u.branch || '') + (u.year ? ' · Year ' + esc(u.year) : '') + (u.college ? ' · ' + esc(u.college) : '') + '</p>' +
+    '<p class="muted">' + esc(u.course ? u.course + ' · ' : '') + esc(u.branch || '') + (u.year ? ' · ' + esc(String(u.year).indexOf('Year') > -1 ? u.year : 'Year ' + u.year) : '') + (u.college ? ' · ' + esc(u.college) : '') + '</p>' +
     '<div class="grid g4" style="margin-top:16px">' +
     stat('My Listed Items', items.length) + stat('My Rentals', mine.length) + stat('Earnings', money(earnings)) + stat('Deposits Held', money(held)) + '</div>' +
     '<div class="grid g2" style="margin-top:16px">' +
@@ -1421,6 +1519,26 @@ async function doReview(f){
 }
 
 /* ---------- Profile ---------- */
+function updateProfileYears(){
+  var courseEl = document.getElementById('profCourse');
+  var branchEl = document.getElementById('profBranch');
+  var yearEl = document.getElementById('profYearSelect');
+  var durEl = document.getElementById('profDurationText');
+  if (!yearEl) return;
+
+  var cVal = courseEl ? courseEl.value : 'B.Tech';
+  var bVal = branchEl ? branchEl.value : '';
+  var data = getCourseYears(cVal, bVal);
+  if (durEl) durEl.textContent = 'Course Duration: ' + data.duration;
+  var currentYearVal = yearEl.value;
+  var html = '';
+  data.years.forEach(function(y){
+    var isSel = (currentYearVal === y);
+    html += '<option value="' + y + '"' + (isSel ? ' selected' : '') + '>' + y + '</option>';
+  });
+  yearEl.innerHTML = html;
+}
+
 function viewProfile(){
   var u = me();
   if (!u) return '';
@@ -1428,13 +1546,23 @@ function viewProfile(){
   var items = state.items.filter(function(i){ return i.ownerId === myUid; });
   var revs = state.reviews.filter(function(r){ return r.ownerId === myUid; });
   var avg = revs.length ? (revs.reduce(function(s, r){ return s + r.rating; }, 0) / revs.length).toFixed(1) : null;
+  var currentCourse = u.course || 'B.Tech';
+  var courseInfo = getCourseYears(currentCourse, u.branch);
 
   return '<div class="container section"><h2>My Profile</h2><div class="grid g2" style="margin-top:14px">' +
     '<div class="card pad"><form id="profileForm" novalidate>' +
     '<label>Full Name</label><input name="name" value="' + esc(u.name || '') + '"><div class="err" data-e="name"></div>' +
     '<label>College Name</label><input name="college" value="' + esc(u.college || '') + '"><div class="err" data-e="college"></div>' +
-    '<label>Branch</label><input name="branch" value="' + esc(u.branch || '') + '"><div class="err" data-e="branch"></div>' +
-    '<label>Year of Study</label><select name="year">' + [1, 2, 3, 4, 5].map(function(y){ return '<option ' + (String(u.year) === String(y) ? 'selected' : '') + '>' + y + '</option>'; }).join('') + '</select>' +
+    '<label>Course</label><select name="course" id="profCourse" onchange="updateProfileYears()">' +
+    ['B.Tech', 'B.E.', 'B.Sc', 'BCA', 'B.Com', 'BBA', 'M.Tech', 'MCA', 'MBA', 'Dual Degree', 'Other'].map(function(c){
+      return '<option value="' + c + '"' + (c === currentCourse ? ' selected' : '') + '>' + c + '</option>';
+    }).join('') + '</select>' +
+    '<label>Branch</label><input name="branch" id="profBranch" oninput="updateProfileYears()" value="' + esc(u.branch || '') + '"><div class="err" data-e="branch"></div>' +
+    '<div class="between"><label style="margin:14px 0 6px">Year of Study</label><span class="muted" style="font-size:12px;margin-top:14px" id="profDurationText">Course Duration: ' + courseInfo.duration + '</span></div>' +
+    '<select name="year" id="profYearSelect">' + courseInfo.years.map(function(y){
+      var isSel = (String(u.year) === y || String(u.year) === y.replace(/[^0-9]/g, ''));
+      return '<option value="' + y + '"' + (isSel ? ' selected' : '') + '>' + y + '</option>';
+    }).join('') + '</select>' +
     '<label>College Email</label><input name="email" value="' + esc(u.email || '') + '" readonly style="opacity:.7;cursor:not-allowed"><div class="err" data-e="email"></div>' +
     '<label>New Password (optional)</label><input name="password" type="password" placeholder="Leave blank to keep unchanged"><div class="err" data-e="password"></div>' +
     '<button class="btn" style="margin-top:16px;width:100%" type="submit">Save profile</button></form></div>' +
@@ -1467,9 +1595,11 @@ async function doProfile(f){
       await auth.currentUser.updatePassword(d.password);
     }
 
+    var courseName = val(f, 'course') || u.course || 'B.Tech';
     var profileData = {
       name: d.name,
       college: d.college,
+      course: courseName,
       branch: d.branch,
       year: val(f, 'year') || u.year || '',
       updatedAt: Date.now()
