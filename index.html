@@ -493,56 +493,79 @@ function itemCard(i){
 }
 
 /* ---------- Course & Year of Study Helper ---------- */
+var COURSE_DURATIONS = {
+  'B.Tech': 4,
+  'B.E.': 4,
+  'B.Sc.': 3,
+  'B.Com.': 3,
+  'B.A.': 3,
+  'BBA': 3,
+  'BCA': 3,
+  'B.Pharm': 4,
+  'B.Arch': 5,
+  'B.Des': 4,
+  'B.Ed': 2,
+  'LLB': 3,
+  'BA LLB': 5,
+  'BBA LLB': 5,
+  'B.Com LLB': 5,
+  'M.Tech': 2,
+  'M.E.': 2,
+  'M.Sc.': 2,
+  'M.Com.': 2,
+  'M.A.': 2,
+  'MBA': 2,
+  'MCA': 2,
+  'M.Pharm': 2,
+  'M.Arch': 2,
+  'M.Ed': 2,
+  'LLM': 2,
+  'Ph.D.': 5,
+  'Dual Degree': 5,
+  'Other': 4
+};
+
+var COURSES = Object.keys(COURSE_DURATIONS);
+
+function yearLabel(n){
+  if (n === 1) return '1st Year';
+  if (n === 2) return '2nd Year';
+  if (n === 3) return '3rd Year';
+  return n + 'th Year';
+}
+
+function getCourseDuration(courseName, branchName){
+  var c = String(courseName || '').trim();
+  if (COURSE_DURATIONS[c]) return COURSE_DURATIONS[c];
+
+  var clean = c.replace(/\./g, '').toLowerCase();
+  for (var key in COURSE_DURATIONS) {
+    if (key.replace(/\./g, '').toLowerCase() === clean) {
+      return COURSE_DURATIONS[key];
+    }
+  }
+
+  var b = String(branchName || '').replace(/\./g, '').toLowerCase();
+  for (var key in COURSE_DURATIONS) {
+    var kClean = key.replace(/\./g, '').toLowerCase();
+    if (b.indexOf(kClean) > -1) {
+      return COURSE_DURATIONS[key];
+    }
+  }
+
+  return 4;
+}
+
 function getCourseYears(courseName, branchName){
-  var c = String(courseName || '').toLowerCase().trim();
-  var b = String(branchName || '').toLowerCase().trim();
-
-  // B.Tech / Bachelor of Technology is strictly a 4-year course
-  if (c.indexOf('b.tech') > -1 || c.indexOf('btech') > -1 || c.indexOf('bachelor of technology') > -1 ||
-      b.indexOf('b.tech') > -1 || b.indexOf('btech') > -1 || b.indexOf('bachelor of technology') > -1 ||
-      c === 'b.tech' || c === 'btech') {
-    return {
-      duration: '4 Years',
-      years: ['1st Year', '2nd Year', '3rd Year', '4th Year']
-    };
+  var dur = getCourseDuration(courseName, branchName);
+  var years = [];
+  for (var i = 1; i <= dur; i++) {
+    years.push(yearLabel(i));
   }
-
-  // B.E. / Engineering - 4 years
-  if (c.indexOf('b.e') > -1 || c.indexOf('be') > -1 || b.indexOf('b.e') > -1) {
-    return {
-      duration: '4 Years',
-      years: ['1st Year', '2nd Year', '3rd Year', '4th Year']
-    };
-  }
-
-  // M.Tech / MBA / MCA / M.Sc - 2 years
-  if (c.indexOf('m.tech') > -1 || c.indexOf('mba') > -1 || c.indexOf('mca') > -1 || c.indexOf('m.sc') > -1) {
-    return {
-      duration: '2 Years',
-      years: ['1st Year', '2nd Year']
-    };
-  }
-
-  // 3-year undergraduate courses
-  if (c.indexOf('b.sc') > -1 || c.indexOf('bca') > -1 || c.indexOf('b.com') > -1 || c.indexOf('bba') > -1) {
-    return {
-      duration: '3 Years',
-      years: ['1st Year', '2nd Year', '3rd Year']
-    };
-  }
-
-  // 5-year courses (Dual degree, Integrated M.Tech, B.Arch, MBBS)
-  if (c.indexOf('dual') > -1 || c.indexOf('integrated') > -1 || c.indexOf('arch') > -1 || c.indexOf('mbbs') > -1 || c.indexOf('5') > -1) {
-    return {
-      duration: '5 Years',
-      years: ['1st Year', '2nd Year', '3rd Year', '4th Year', '5th Year']
-    };
-  }
-
-  // Default fallback
   return {
-    duration: '4 Years',
-    years: ['1st Year', '2nd Year', '3rd Year', '4th Year']
+    duration: dur + ' Year' + (dur > 1 ? 's' : ''),
+    durYears: dur,
+    years: years
   };
 }
 
@@ -557,13 +580,30 @@ function updateRegisterYears(){
   var bVal = branchEl ? branchEl.value : '';
   var data = getCourseYears(cVal, bVal);
   if (durEl) durEl.textContent = 'Course Duration: ' + data.duration;
-  var currentYearVal = yearEl.value;
-  var html = '<option value="">Select year</option>';
+
+  var previousYear = yearEl.value;
+  yearEl.innerHTML = '';
+
+  var defaultOpt = document.createElement('option');
+  defaultOpt.value = '';
+  defaultOpt.textContent = 'Select year';
+  yearEl.appendChild(defaultOpt);
+
+  var isPreviousYearValid = false;
   data.years.forEach(function(y){
-    var isSel = (currentYearVal === y);
-    html += '<option value="' + y + '"' + (isSel ? ' selected' : '') + '>' + y + '</option>';
+    var opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = y;
+    if (previousYear && (previousYear === y || previousYear === y.replace(/[^0-9]/g, ''))) {
+      opt.selected = true;
+      isPreviousYearValid = true;
+    }
+    yearEl.appendChild(opt);
   });
-  yearEl.innerHTML = html;
+
+  if (!isPreviousYearValid) {
+    yearEl.value = '';
+  }
 }
 
 /* ---------- Authentication Forms & Logic ---------- */
@@ -575,11 +615,11 @@ function viewRegister(){
     '<form id="regForm" novalidate>' +
     fld('Full Name', 'name') + fld('College Name', 'college') +
     '<label>Course</label><select name="course" id="regCourse" onchange="updateRegisterYears()">' +
-    ['B.Tech', 'B.E.', 'B.Sc', 'BCA', 'B.Com', 'BBA', 'M.Tech', 'MCA', 'MBA', 'Dual Degree', 'Other'].map(function(c){
+    COURSES.map(function(c){
       return '<option value="' + c + '"' + (c === defaultCourse ? ' selected' : '') + '>' + c + '</option>';
     }).join('') + '</select><div class="err" data-e="course"></div>' +
     fld('Branch', 'branch') +
-    '<div class="between"><label style="margin:14px 0 6px">Year of Study</label><span class="muted" style="font-size:12px;margin-top:14px" id="courseDurationText">Course Duration: ' + initialData.duration + '</span></div>' +
+    '<div class="between"><label style="margin:14px 0 6px">Current Year of Study</label><span class="muted" style="font-size:12px;margin-top:14px" id="courseDurationText">Course Duration: ' + initialData.duration + '</span></div>' +
     '<select name="year" id="regYearSelect"><option value="">Select year</option>' + initialData.years.map(function(y){
       return '<option value="' + y + '">' + y + '</option>';
     }).join('') + '</select><div class="err" data-e="year"></div>' +
@@ -1530,13 +1570,30 @@ function updateProfileYears(){
   var bVal = branchEl ? branchEl.value : '';
   var data = getCourseYears(cVal, bVal);
   if (durEl) durEl.textContent = 'Course Duration: ' + data.duration;
-  var currentYearVal = yearEl.value;
-  var html = '';
+
+  var previousYear = yearEl.value;
+  yearEl.innerHTML = '';
+
+  var defaultOpt = document.createElement('option');
+  defaultOpt.value = '';
+  defaultOpt.textContent = 'Select year';
+  yearEl.appendChild(defaultOpt);
+
+  var isPreviousYearValid = false;
   data.years.forEach(function(y){
-    var isSel = (currentYearVal === y);
-    html += '<option value="' + y + '"' + (isSel ? ' selected' : '') + '>' + y + '</option>';
+    var opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = y;
+    if (previousYear && (previousYear === y || previousYear === y.replace(/[^0-9]/g, ''))) {
+      opt.selected = true;
+      isPreviousYearValid = true;
+    }
+    yearEl.appendChild(opt);
   });
-  yearEl.innerHTML = html;
+
+  if (!isPreviousYearValid) {
+    yearEl.value = '';
+  }
 }
 
 function viewProfile(){
@@ -1554,12 +1611,12 @@ function viewProfile(){
     '<label>Full Name</label><input name="name" value="' + esc(u.name || '') + '"><div class="err" data-e="name"></div>' +
     '<label>College Name</label><input name="college" value="' + esc(u.college || '') + '"><div class="err" data-e="college"></div>' +
     '<label>Course</label><select name="course" id="profCourse" onchange="updateProfileYears()">' +
-    ['B.Tech', 'B.E.', 'B.Sc', 'BCA', 'B.Com', 'BBA', 'M.Tech', 'MCA', 'MBA', 'Dual Degree', 'Other'].map(function(c){
+    COURSES.map(function(c){
       return '<option value="' + c + '"' + (c === currentCourse ? ' selected' : '') + '>' + c + '</option>';
     }).join('') + '</select>' +
     '<label>Branch</label><input name="branch" id="profBranch" oninput="updateProfileYears()" value="' + esc(u.branch || '') + '"><div class="err" data-e="branch"></div>' +
-    '<div class="between"><label style="margin:14px 0 6px">Year of Study</label><span class="muted" style="font-size:12px;margin-top:14px" id="profDurationText">Course Duration: ' + courseInfo.duration + '</span></div>' +
-    '<select name="year" id="profYearSelect">' + courseInfo.years.map(function(y){
+    '<div class="between"><label style="margin:14px 0 6px">Current Year of Study</label><span class="muted" style="font-size:12px;margin-top:14px" id="profDurationText">Course Duration: ' + courseInfo.duration + '</span></div>' +
+    '<select name="year" id="profYearSelect"><option value="">Select year</option>' + courseInfo.years.map(function(y){
       var isSel = (String(u.year) === y || String(u.year) === y.replace(/[^0-9]/g, ''));
       return '<option value="' + y + '"' + (isSel ? ' selected' : '') + '>' + y + '</option>';
     }).join('') + '</select>' +
