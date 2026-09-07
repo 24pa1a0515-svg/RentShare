@@ -8,13 +8,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<!-- Firebase v10 Compat SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-storage-compat.js"></script>
-
 <style>
 :root{
   --bg:#f7f9fc; --surface:#ffffff; --surface-2:#f1f5fb; --text:#0d1526; --muted:#5b6b85;
@@ -49,7 +42,6 @@ header.nav{position:sticky;top:0;z-index:40;background:color-mix(in oklab,var(--
 .btn{border:1px solid transparent;border-radius:11px;padding:10px 16px;font-weight:650;font-size:14px;cursor:pointer;background:linear-gradient(135deg,var(--primary),var(--indigo));color:#fff;transition:transform .16s,box-shadow .16s,background .16s;box-shadow:0 6px 16px color-mix(in oklab,var(--primary) 25%,transparent);font-family:inherit}
 .btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px color-mix(in oklab,var(--primary) 32%,transparent)}
 .btn:active{transform:translateY(0)}
-.btn:disabled{opacity:.6;cursor:not-allowed;transform:none!important}
 .btn.ghost{background:var(--surface);border-color:var(--border);color:var(--text);box-shadow:none}
 .btn.ghost:hover{background:var(--surface-2);border-color:color-mix(in oklab,var(--primary) 35%,var(--border))}
 .btn.sm{padding:7px 12px;font-size:13px;border-radius:9px}
@@ -83,7 +75,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary)
 .badge.ok{background:color-mix(in oklab,var(--ok) 16%,transparent);color:var(--ok);border-color:transparent}
 .badge.no{background:color-mix(in oklab,var(--danger) 14%,transparent);color:var(--danger);border-color:transparent}
 .badge.b{background:color-mix(in oklab,var(--primary) 14%,transparent);color:var(--primary);border-color:transparent}
-.badge.warn{background:color-mix(in oklab,var(--warn) 16%,transparent);color:var(--warn);border-color:transparent}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .between{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .stat{font-family:"Plus Jakarta Sans",Inter,sans-serif;font-size:30px;font-weight:800;letter-spacing:-1px;margin-top:2px}
@@ -105,7 +96,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary)
 .msg .when{display:block;font-size:10.5px;opacity:.7;margin-top:3px}
 .stars{font-size:20px;cursor:pointer;letter-spacing:2px;color:#f59e0b;user-select:none}
 footer{border-top:1px solid var(--border);background:var(--surface);margin-top:48px;padding:34px 0;color:var(--muted);font-size:14px}
-.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:12px 20px;border-radius:999px;font-weight:650;z-index:99;box-shadow:var(--shadow-lg);transition:opacity .2s}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:12px 20px;border-radius:999px;font-weight:650;z-index:99;box-shadow:var(--shadow-lg)}
 .modal-bg{position:fixed;inset:0;background:rgba(2,6,23,.55);display:grid;place-items:center;z-index:80;padding:16px;backdrop-filter:blur(3px)}
 .modal{max-width:520px;width:100%;max-height:88vh;overflow:auto;box-shadow:var(--shadow-lg)}
 table{width:100%;border-collapse:collapse;font-size:14px}
@@ -126,7 +117,44 @@ tr:last-child th,tr:last-child td{border-bottom:none}
   .navlinks.open{display:flex}
   .msgs{height:320px}
 }
+/* ---- upgraded UI primitives ---- */
+.skel{background:linear-gradient(90deg,var(--surface-2) 25%,color-mix(in oklab,var(--surface-2) 60%,var(--border)) 37%,var(--surface-2) 63%);background-size:400% 100%;animation:sh 1.3s ease infinite;border-radius:10px}
+@keyframes sh{0%{background-position:100% 0}100%{background-position:0 0}}
+.skel.line{height:12px;margin:8px 0}
+.skel.img{height:170px}
+.toast{display:flex;align-items:center;gap:9px;max-width:min(92vw,420px);text-align:left;border-radius:14px}
+.toast.err{background:var(--danger);color:#fff}
+.toast.ok{background:var(--ok);color:#fff}
+.hero-stats{display:flex;gap:26px;margin-top:30px;flex-wrap:wrap}
+.hero-stats div span{display:block;font-family:"Plus Jakarta Sans",Inter,sans-serif;font-size:26px;font-weight:800;letter-spacing:-1px}
+.trust{display:grid;gap:14px;grid-template-columns:repeat(3,1fr)}
+.trust .card{padding:22px}
+.trust .ic,.step .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:19px;background:color-mix(in oklab,var(--primary) 13%,transparent);color:var(--primary);margin-bottom:12px}
+.ftr{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:26px}
+.ftr h4{margin:0 0 10px;font-family:"Plus Jakarta Sans",Inter,sans-serif;font-size:14px;color:var(--text)}
+.ftr a{display:block;padding:3px 0;transition:.15s}
+.ftr a:hover{color:var(--primary)}
+.ftr-btm{border-top:1px solid var(--border);margin-top:26px;padding-top:16px;font-size:13px}
+.notif{display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--border)}
+.notif .dot{width:9px;height:9px;border-radius:50%;background:var(--primary);margin-top:7px;flex:0 0 auto}
+.notif .dot.seen{background:var(--border)}
+.msg .tick{font-size:10.5px;opacity:.8;margin-left:6px}
+.unread{display:inline-grid;place-items:center;min-width:19px;height:19px;padding:0 5px;border-radius:999px;background:var(--danger);color:#fff;font-size:11px;font-weight:700;margin-left:6px}
+.modal{animation:pop .18s ease}
+@keyframes pop{from{transform:translateY(10px) scale(.98);opacity:0}to{transform:none;opacity:1}}
+.modal-bg{animation:fade .16s ease}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.banner{border:1px solid color-mix(in oklab,var(--danger) 45%,transparent);background:color-mix(in oklab,var(--danger) 10%,var(--surface));color:var(--danger);padding:12px 16px;border-radius:12px;font-weight:600;font-size:13.5px;margin-bottom:16px}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed var(--border);font-size:13.5px}
+.kv:last-child{border-bottom:none}
+.chip{font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:8px;background:var(--surface-2);border:1px solid var(--border);color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+@media(max-width:900px){.trust{grid-template-columns:1fr}.ftr{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.ftr{grid-template-columns:1fr}}
 </style>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
 </head>
 <body>
 <header class="nav">
@@ -134,7 +162,7 @@ tr:last-child th,tr:last-child td{border-bottom:none}
     <a class="brand" href="#/" data-nav><span class="logo">RS</span> RentShare</a>
     <nav class="navlinks" id="navlinks"></nav>
     <div class="navright">
-      <button class="icon-btn" id="themeBtn" title="Toggle theme">◐</button>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme">🌗</button>
       <span id="authArea"></span>
       <button class="icon-btn burger" id="burger">☰</button>
     </div>
@@ -142,1626 +170,928 @@ tr:last-child th,tr:last-child td{border-bottom:none}
 </header>
 <main id="app"></main>
 <footer>
-  <div class="container between">
-    <div><strong>RentShare</strong> — Rent What You Need. Share What You Own.</div>
-    <div class="muted">A student-to-student rental &amp; sharing platform.</div>
+  <div class="container">
+    <div class="ftr">
+      <div>
+        <div class="brand" style="margin-bottom:10px"><span class="logo">RS</span> RentShare</div>
+        <div>Rent What You Need. Share What You Own.</div>
+        <div style="margin-top:8px;font-size:13px">A student-to-student rental &amp; sharing platform built for campus life.</div>
+      </div>
+      <div><h4>Explore</h4><a data-nav href="#/browse">Browse Items</a><a data-nav href="#/categories">Categories</a><a data-nav href="#/how">How It Works</a></div>
+      <div><h4>For students</h4><a data-nav href="#/add">List Your Item</a><a data-nav href="#/dashboard">Dashboard</a><a data-nav href="#/messages">Messages</a></div>
+      <div><h4>Trust &amp; safety</h4><a data-nav href="#/how">Deposits &amp; handover</a><a data-nav href="#/how">Ratings &amp; reviews</a><a data-nav href="#/profile">Your account</a></div>
+    </div>
+    <div class="ftr-btm between"><span>© <span id="yr"></span> RentShare</span><span>Students only · No fake listings · Real reviews only</span></div>
   </div>
 </footer>
 
+
 <script>
-/* ---------- Firebase Configuration & Initialization ---------- */
-var firebaseConfig = {
-  apiKey: "AIzaSyBe_Aw8W0mW7f15eVN5AIVTy9htMUo09ZU",
-  authDomain: "rentshare-28a55.firebaseapp.com",
-  projectId: "rentshare-28a55",
-  storageBucket: "rentshare-28a55.firebasestorage.app",
-  messagingSenderId: "800537673493",
-  appId: "1:800537673493:web:c4e0fdcb163039d034731c",
-  measurementId: "G-GT7F2NKP35"
+/* ---------- Firebase data layer ---------- */
+/* All application data lives in Firebase (Authentication + Cloud Firestore +
+   Storage). Only the light/dark theme preference is kept in localStorage.
+   Nothing is ever pre-populated: every record is created by a real user. */
+var firebaseConfig={
+  apiKey:"AIzaSyBe_Aw8W0mW7f15eVN5AIVTy9htMUo09ZU",
+  authDomain:"rentshare-28a55.firebaseapp.com",
+  projectId:"rentshare-28a55",
+  storageBucket:"rentshare-28a55.firebasestorage.app",
+  messagingSenderId:"800537673493",
+  appId:"1:800537673493:web:c4e0fdcb163039d034731c",
+  measurementId:"G-GT7F2NKP35"
 };
-
 firebase.initializeApp(firebaseConfig);
-var auth = firebase.auth();
-var db = firebase.firestore();
-var storage = firebase.storage();
+var fbAuth=firebase.auth(),fbDb=firebase.firestore(),fbStore=firebase.storage();
 
-/* ---------- Application State ---------- */
-var state = {
-  users: {},         // cached student profiles
-  items: [],         // all listings from Firestore
-  rentals: [],       // user's rentals as owner or renter
-  conversations: [], // user's conversations
-  messages: [],      // messages for activeConvo
-  reviews: [],       // reviews from Firestore
-  notifications: []  // user's notifications
-};
+var K={theme:'rs_theme',users:'users',items:'items',rentals:'rentals',convos:'convos',msgs:'msgs',reviews:'reviews',notifs:'notifs'};
+var DB={users:[],items:[],rentals:[],convos:[],msgs:[],reviews:[],notifs:[]};
+var CURRENT=null;
+var BOOTED=false, OFFLINE=false;
+var STATS={students:0,items:0,rentals:0};
+var COL={users:'users',items:'items',rentals:'rentals',convos:'conversations',msgs:'messages',reviews:'reviews',notifs:'notifications'};
+function load(k){return DB[k]||[]}
+function save(){/* persistence handled by Firestore */}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
+function me(){return CURRENT}
+function myUid(){return fbAuth.currentUser?fbAuth.currentUser.uid:''}
+function requireUser(){if(!fbAuth.currentUser)throw fail('Please log in to continue.',401);return fbAuth.currentUser}
+function fail(msg,status,errors){var e=new Error(msg);e.status=status||400;if(errors)e.errors=errors;return e}
+function docData(d){var o=d.data()||{};o.id=d.id;return o}
+function mergeById(list){var seen={},out=[];list.forEach(function(x){if(!seen[x.id]){seen[x.id]=1;out.push(x)}});return out}
+function ts(){return Date.now()}
+function fingerprint(){return 'RS-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).slice(2,6).toUpperCase()}
 
-var currentUser = null;
-var activeConvo = null;
-var rentalTab = 'All';
-var filters = {q:'', cat:'', max:'', avail:''};
-var afterRender = null;
-
-var CATS = ['Calculators','Books','Lab Equipment','Electronics','Project Kits','Cycles','Furniture','Cameras','Sports Equipment','Other Essentials'];
-
-/* ---------- Helpers & Utilities ---------- */
-var esc = function(s){
-  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
-    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
-  });
-};
-
-function money(n){
-  return '₹' + (Math.round((Number(n) || 0) * 100) / 100).toLocaleString('en-IN');
+/* ---- realtime listeners: every screen reads live Firestore data ---- */
+var UNSUBS=[],BUCKETS={},LISTEN_UID=null,FIRST=[];
+function stopListeners(){UNSUBS.forEach(function(f){try{f()}catch(e){}});UNSUBS=[];BUCKETS={}}
+function sub(key,slot,query){
+  BUCKETS[key]=BUCKETS[key]||[];
+  var done,p=new Promise(function(r){done=r});FIRST.push(p);
+  var un=query.onSnapshot(function(snap){
+    BUCKETS[key][slot]=snap.docs.map(docData);
+    DB[key]=mergeById([].concat(BUCKETS[key][0]||[],BUCKETS[key][1]||[]));
+    done();onData();
+  },function(err){console.warn('Firestore listener failed for '+key,err&&err.message);done()});
+  UNSUBS.push(un);
 }
-
-function toast(m){
-  var t = document.createElement('div');
-  t.className = 'toast';
-  t.textContent = m;
-  document.body.appendChild(t);
-  setTimeout(function(){
-    t.style.opacity = '0';
-    setTimeout(function(){ t.remove(); }, 200);
-  }, 2200);
-}
-
-function me(){
-  return currentUser;
-}
-
-function userById(id){
-  if (!id) return null;
-  if (currentUser && (currentUser.uid === id || currentUser.id === id)) return currentUser;
-  if (state.users[id]) return state.users[id];
-  fetchMissingUsers([id]);
-  return null;
-}
-
-function itemById(id){
-  if (!id) return null;
-  return state.items.find(function(i){ return i.id === id; }) || null;
-}
-
-function empty(title, sub){
-  return '<div class="empty"><div class="big">📦</div><div style="font-weight:700;color:var(--text)">' +
-    esc(title) + '</div>' + (sub ? '<div style="margin-top:6px">' + esc(sub) + '</div>' : '') + '</div>';
-}
-
-function fld(l, n, t, valDefault){
-  return '<label>' + l + '</label><input name="' + n + '" type="' + (t || 'text') + '" value="' + esc(valDefault || '') + '"><div class="err" data-e="' + n + '"></div>';
-}
-
-function val(f, n){
-  var el = f.elements[n];
-  return el ? String(el.value || '').trim() : '';
-}
-
-function setErrs(form, errs){
-  form.querySelectorAll('.err').forEach(function(d){
-    d.textContent = errs[d.dataset.e] || '';
-  });
-  return Object.keys(errs).length === 0;
-}
-
-/* User profile caching helper */
-function fetchMissingUsers(ids){
-  var missing = Array.from(new Set(ids)).filter(function(id){
-    return id && !state.users[id] && (!currentUser || (currentUser.uid !== id && currentUser.id !== id));
-  });
-  if (!missing.length) return;
-  missing.forEach(function(id){
-    state.users[id] = { id: id, name: 'Student' };
-    db.collection('users').doc(id).get().then(function(doc){
-      if (doc.exists) {
-        state.users[id] = Object.assign({ id: doc.id, uid: doc.id }, doc.data());
-        render();
-      }
-    }).catch(function(e){
-      console.warn('Failed to load user profile for', id, e);
-    });
-  });
-}
-
-/* Real-time Notifications helper */
-async function notifyUser(userId, text, type, link){
-  if (!userId) return;
-  try {
-    await db.collection('notifications').add({
-      userId: userId,
-      text: text,
-      type: type || 'general',
-      link: link || '',
-      read: false,
-      at: Date.now(),
-      createdAt: Date.now()
-    });
-  } catch (err) {
-    console.warn('Failed to dispatch notification:', err);
+function startListeners(){
+  stopListeners();FIRST=[];
+  var u=myUid();LISTEN_UID=u;
+  sub('users',0,fbDb.collection(COL.users));
+  sub('items',0,fbDb.collection(COL.items));
+  sub('reviews',0,fbDb.collection(COL.reviews));
+  if(u){
+    sub('rentals',0,fbDb.collection(COL.rentals).where('ownerId','==',u));
+    sub('rentals',1,fbDb.collection(COL.rentals).where('renterId','==',u));
+    sub('convos',0,fbDb.collection(COL.convos).where('members','array-contains',u));
+    sub('msgs',0,fbDb.collection(COL.msgs).where('from','==',u));
+    sub('msgs',1,fbDb.collection(COL.msgs).where('to','==',u));
+    sub('notifs',0,fbDb.collection(COL.notifs).where('userId','==',u));
+  }else{
+    DB.rentals=[];DB.convos=[];DB.msgs=[];DB.notifs=[];
   }
+  return Promise.all(FIRST);
 }
-
-/* Mark notifications as read */
-async function markNotificationsRead(){
-  var u = me();
-  if (!u) return;
-  var myUid = u.id || u.uid;
-  var unread = state.notifications.filter(function(n){
-    return n.userId === myUid && !n.read;
-  });
-  if (!unread.length) return;
-  var batch = db.batch();
-  unread.forEach(function(n){
-    var ref = db.collection('notifications').doc(n.id);
-    batch.update(ref, { read: true });
-  });
-  try {
-    await batch.commit();
-  } catch (e) {
-    console.warn('Error marking notifications read:', e);
-  }
-}
-
-/* Fetch active/accepted bookings directly from Firestore for a specific item */
-async function getItemBookings(itemId){
-  if (!itemId) return [];
-  try {
-    var snap = await db.collection('rentals').where('itemId', '==', itemId).get();
-    var bookings = [];
-    snap.forEach(function(doc){
-      var d = doc.data();
-      if (d.status === 'Accepted' || d.status === 'Active') {
-        bookings.push(Object.assign({ id: doc.id }, d));
-      }
-    });
-    return bookings;
-  } catch (e) {
-    console.warn('Direct Firestore query for item bookings fell back to cache:', e);
-    return state.rentals.filter(function(r){
-      return r.itemId === itemId && (r.status === 'Accepted' || r.status === 'Active');
-    });
-  }
-}
-
-/* ---------- Theme ---------- */
-function applyTheme(t){
-  document.documentElement.setAttribute('data-theme', t);
-  localStorage.setItem('rs_theme', t);
-}
-applyTheme(localStorage.getItem('rs_theme') || 'light');
-document.getElementById('themeBtn').onclick = function(){
-  applyTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
-};
-document.getElementById('burger').onclick = function(){
-  document.getElementById('navlinks').classList.toggle('open');
-};
-
-/* ---------- Router ---------- */
-function go(h){
-  location.hash = h;
-}
-window.addEventListener('hashchange', function(){
+function onData(){
+  CURRENT=myUid()?(DB.users.find(function(x){return x.id===myUid()})||null):null;
+  STATS={students:DB.users.length,items:DB.items.length,rentals:DB.rentals.length};
+  if(!BOOTED)return;
+  if(document.querySelector('#regForm,#loginForm,#itemForm,#profileForm,#reviewForm,#modal'))return;
   render();
-});
-document.addEventListener('click', function(e){
-  var a = e.target.closest('a[data-nav]');
-  if (a) {
-    document.getElementById('navlinks').classList.remove('open');
-  }
+}
+function sync(){
+  if(LISTEN_UID===myUid()&&UNSUBS.length)return Promise.resolve().then(function(){onData()});
+  return startListeners().then(function(){onData()});
+}
+function refresh(){return sync().then(function(){render()})}
+
+/* ---- request layer: same call sites as before, now backed by Firebase ---- */
+function api(path,opts){
+  opts=opts||{};
+  var m=opts.method||'GET',b=opts.body||{},x;
+  return Promise.resolve().then(function(){
+    if(path==='/auth/register')return fbRegister(b);
+    if(path==='/auth/login')return fbLogin(b);
+    if(path==='/profile')return fbSaveProfile(b);
+    if(path==='/items'&&m==='POST')return fbItemCreate(b);
+    if(x=path.match(/^\/items\/([^/]+)$/))return m==='DELETE'?fbItemDelete(x[1]):fbItemUpdate(x[1],b);
+    if(path==='/rentals'&&m==='POST')return fbRentalCreate(b);
+    if(x=path.match(/^\/rentals\/([^/]+)\/status$/))return fbRentalStatus(x[1],b.status);
+    if(path==='/conversations')return fbOpenConvo(b);
+    if(path==='/messages'&&m==='POST')return fbSendMessage(b);
+    if(path==='/messages/read')return fbMarkMessagesRead(b.convoId);
+    if(path==='/reviews')return fbCreateReview(b);
+    if(path==='/notifications/read')return fbMarkAllNotifsRead();
+    if(x=path.match(/^\/notifications\/([^/]+)\/read$/))return fbMarkNotifRead(x[1]);
+    throw fail('This action is not available.');
+  }).catch(function(e){throw fbError(e)});
+}
+function fbError(e){
+  var code=e&&e.code||'';
+  if(code==='auth/email-already-in-use')return fail('That email is already registered.',400,{email:'That email is already registered. Try logging in.'});
+  if(code==='auth/invalid-email')return fail('Invalid email.',400,{email:'Enter a valid email address.'});
+  if(code==='auth/weak-password')return fail('Weak password.',400,{password:'Password must be at least 6 characters.'});
+  if(code==='auth/user-not-found'||code==='auth/wrong-password'||code==='auth/invalid-credential')
+    return fail('Incorrect email or password.',401,{password:'Incorrect email or password.'});
+  if(code==='auth/too-many-requests')return fail('Too many attempts. Please try again in a few minutes.',429);
+  if(code==='auth/requires-recent-login')return fail('Please log in again to change this.',401,{password:'Log out and log in again to change your password.'});
+  if(code==='auth/network-request-failed'||code==='unavailable'){var o=fail('Cannot reach Firebase right now. Check your internet connection.',503);o.offline=true;return o}
+  if(code==='permission-denied')return fail('You do not have permission to do that.',403);
+  return e instanceof Error?e:fail(String(e||'Something went wrong.'));
+}
+function uploadImage(file,folder){
+  var u=requireUser();
+  var safe=String(file.name||'image').replace(/[^\w.\-]/g,'_');
+  var ref=fbStore.ref(folder+'/'+u.uid+'/'+Date.now()+'_'+safe);
+  return ref.put(file).then(function(){return ref.getDownloadURL()});
+}
+
+/* ---- authentication (Firebase Auth; passwords never stored in Firestore) ---- */
+function fbRegister(d){
+  return fbAuth.createUserWithEmailAndPassword(d.email,d.password).then(function(cred){
+    var profile={name:d.name,college:d.college,branch:d.branch,year:String(d.year),email:d.email,photo:'',at:ts()};
+    return fbDb.collection(COL.users).doc(cred.user.uid).set(profile).then(function(){
+      return startListeners().then(function(){onData();return {token:cred.user.uid,user:profile}});
+    });
+  });
+}
+function fbLogin(d){
+  return fbAuth.signInWithEmailAndPassword(d.email,d.password).then(function(cred){
+    return startListeners().then(function(){
+      onData();
+      return {token:cred.user.uid,user:CURRENT||{name:d.email.split('@')[0]}};
+    });
+  });
+}
+function fbSaveProfile(d){
+  var u=requireUser();
+  var patch={name:d.name,college:d.college,branch:d.branch,year:String(d.year||''),email:d.email};
+  var chain=Promise.resolve();
+  if(d.email&&d.email!==u.email)chain=chain.then(function(){return u.updateEmail(d.email)});
+  if(d.password)chain=chain.then(function(){return u.updatePassword(d.password)});
+  return chain.then(function(){return fbDb.collection(COL.users).doc(u.uid).update(patch)}).then(function(){return {ok:true}});
+}
+
+/* ---- items ---- */
+function fbItemCreate(b){
+  var u=requireUser();
+  var item={ownerId:u.uid,name:b.name,category:b.category,description:b.description,image:b.image||'',
+    condition:b.condition,perHour:Number(b.perHour),perDay:Number(b.perDay),deposit:Number(b.deposit),
+    location:b.location,available:!!b.available,fingerprint:fingerprint(),bookings:[],at:ts()};
+  return fbDb.collection(COL.items).add(item).then(function(r){return {item:Object.assign({id:r.id},item)}});
+}
+function fbItemUpdate(id,b){
+  var u=requireUser(),it=itemById(id);
+  if(!it)throw fail('Item not found.',404);
+  if(it.ownerId!==u.uid)throw fail('You can only edit your own items.',403);
+  var patch={name:b.name,category:b.category,description:b.description,image:b.image||'',condition:b.condition,
+    perHour:Number(b.perHour),perDay:Number(b.perDay),deposit:Number(b.deposit),location:b.location,available:!!b.available};
+  return fbDb.collection(COL.items).doc(id).update(patch).then(function(){return {ok:true}});
+}
+function fbItemDelete(id){
+  var u=requireUser(),it=itemById(id);
+  if(!it)throw fail('Item not found.',404);
+  if(it.ownerId!==u.uid)throw fail('You can only delete your own items.',403);
+  return fbDb.collection(COL.items).doc(id).delete().then(function(){return {ok:true}});
+}
+
+/* ---- rentals: availability is enforced inside a Firestore transaction ---- */
+function overlaps(aS,aE,bS,bE){return aS<bE&&bS<aE}
+function bookingConflict(bookings,startMs,endMs,skipId){
+  return (bookings||[]).some(function(x){
+    if(skipId&&x.rentalId===skipId)return false;
+    return overlaps(startMs,endMs,Date.parse(x.start),Date.parse(x.end));
+  });
+}
+function notifRef(){return fbDb.collection(COL.notifs).doc()}
+function pushNotif(t,userId,type,text,link){
+  t.set(notifRef(),{userId:userId,type:type,text:text,link:link||'',read:false,at:ts()});
+}
+function fbRentalCreate(b){
+  var u=requireUser(),item=itemById(b.itemId);
+  if(!item)throw fail('Item not found.',404);
+  if(item.ownerId===u.uid)throw fail('You cannot rent your own item.',400);
+  var calc=calcRental(item,b.mode,b.start,b.end);
+  if(!calc)throw fail('End time must be after the start time.',400);
+  var open=DB.rentals.some(function(r){return r.itemId===item.id&&r.renterId===u.uid&&['Requested','Accepted','Active'].indexOf(r.status)>-1});
+  if(open)throw fail('You already have an open request for this item.',409);
+  var startMs=Date.parse(new Date(b.start).toISOString()),endMs=Date.parse(new Date(b.end).toISOString());
+  var iref=fbDb.collection(COL.items).doc(item.id),rref=fbDb.collection(COL.rentals).doc();
+  var mine=CURRENT||{};
+  return fbDb.runTransaction(function(t){
+    return t.get(iref).then(function(snap){
+      if(!snap.exists)throw fail('Item not found.',404);
+      var d=snap.data();
+      if(!d.available)throw fail('This item is not available right now.',409);
+      if(bookingConflict(d.bookings,startMs,endMs))throw fail('This item is already booked for part of that time window.',409);
+      t.set(rref,{itemId:item.id,ownerId:d.ownerId,renterId:u.uid,mode:calc.mode,units:calc.units,
+        cost:calc.cost,deposit:calc.deposit,total:calc.total,
+        start:new Date(b.start).toISOString(),end:new Date(b.end).toISOString(),
+        status:'Requested',handoverStatus:'Pending',returnStatus:'Pending',reviewed:false,
+        fingerprint:d.fingerprint||'',at:ts()});
+      pushNotif(t,d.ownerId,'rental_requested',(mine.name||'A student')+' requested to rent your '+d.name+'.','#/dashboard');
+    });
+  }).then(function(){return {rental:{id:rref.id}}});
+}
+var FLOW={Requested:['Accepted','Rejected','Cancelled'],Accepted:['Active','Cancelled'],Active:['Returned'],Returned:['Completed']};
+function fbRentalStatus(id,status){
+  var u=requireUser();
+  var rref=fbDb.collection(COL.rentals).doc(id);
+  var mine=CURRENT||{};
+  return fbDb.runTransaction(function(t){
+    return t.get(rref).then(function(snap){
+      if(!snap.exists)throw fail('Rental not found.',404);
+      var r=snap.data();
+      var isOwner=r.ownerId===u.uid,isRenter=r.renterId===u.uid;
+      if(!isOwner&&!isRenter)throw fail('You do not have access to this rental.',403);
+      if((FLOW[r.status]||[]).indexOf(status)<0)throw fail('Cannot change a '+r.status+' rental to '+status+'.',400);
+      if(status==='Cancelled'&&!isRenter)throw fail('Only the renter can cancel a request.',403);
+      if(status!=='Cancelled'&&!isOwner)throw fail('Only the item owner can do that.',403);
+      var iref=fbDb.collection(COL.items).doc(r.itemId);
+      return t.get(iref).then(function(isnap){
+        var patch={status:status};
+        if(status==='Active')patch.handoverStatus='Handed over';
+        if(status==='Returned')patch.returnStatus='Returned';
+        if(isnap.exists&&isOwner){
+          var d=isnap.data(),bk=(d.bookings||[]).filter(function(x){return x.rentalId!==id});
+          if(status==='Accepted'){
+            if(bookingConflict(d.bookings,Date.parse(r.start),Date.parse(r.end),id))
+              throw fail('This item is already booked for part of that time window.',409);
+            bk.push({rentalId:id,start:r.start,end:r.end,status:'Accepted'});
+            t.update(iref,{bookings:bk});
+          }else if(status==='Active'){
+            bk.push({rentalId:id,start:r.start,end:r.end,status:'Active'});
+            t.update(iref,{bookings:bk});
+          }else{
+            t.update(iref,{bookings:bk});
+          }
+        }
+        t.update(rref,patch);
+        var name=isnap.exists?isnap.data().name:'the item';
+        var who=isOwner?r.renterId:r.ownerId;
+        var text={Accepted:'Your rental request for '+name+' was accepted.',
+          Rejected:'Your rental request for '+name+' was rejected.',
+          Active:'Your rental of '+name+' is now active.',
+          Returned:name+' has been marked as returned.',
+          Completed:'Your rental of '+name+' is complete. You can leave a review.',
+          Cancelled:(mine.name||'A student')+' cancelled the request for '+name+'.'}[status];
+        pushNotif(t,who,'rental_'+status.toLowerCase(),text,isOwner?'#/rentals':'#/dashboard');
+      });
+    });
+  }).then(function(){return {ok:true}});
+}
+
+/* ---- chat: real students only, stored in Firestore ---- */
+function fbOpenConvo(b){
+  var u=requireUser(),other=b.otherId,itemId=b.itemId||'';
+  if(!other||other===u.uid)throw fail('Pick another student to chat with.',400);
+  var found=DB.convos.find(function(c){return (c.itemId||'')===itemId&&c.members.indexOf(u.uid)>-1&&c.members.indexOf(other)>-1});
+  if(found)return Promise.resolve({conversation:found});
+  var convo={members:[u.uid,other],itemId:itemId,at:ts()};
+  return fbDb.collection(COL.convos).add(convo).then(function(r){return {conversation:Object.assign({id:r.id},convo)}});
+}
+function fbSendMessage(b){
+  var u=requireUser(),text=String(b.text||'').trim();
+  if(!text)throw fail('Write a message first.',400);
+  var convo=DB.convos.find(function(c){return c.id===b.convoId});
+  if(!convo)throw fail('Conversation not found.',404);
+  var to=convo.members.filter(function(x){return x!==u.uid})[0];
+  var mine=CURRENT||{};
+  var batch=fbDb.batch();
+  batch.set(fbDb.collection(COL.msgs).doc(),{convoId:convo.id,from:u.uid,to:to,text:text,read:false,at:ts()});
+  batch.set(notifRef(),{userId:to,type:'message',text:(mine.name||'A student')+' sent you a message.',link:'#/messages',read:false,at:ts()});
+  return batch.commit().then(function(){return {ok:true}});
+}
+function fbMarkMessagesRead(convoId){
+  var u=requireUser();
+  var pend=DB.msgs.filter(function(m){return m.convoId===convoId&&m.to===u.uid&&!m.read});
+  if(!pend.length)return Promise.resolve({ok:true});
+  var batch=fbDb.batch();
+  pend.forEach(function(m){batch.update(fbDb.collection(COL.msgs).doc(m.id),{read:true})});
+  return batch.commit().then(function(){return {ok:true}});
+}
+
+/* ---- reviews: only the renter, only after a completed rental, once ---- */
+function fbCreateReview(b){
+  var u=requireUser();
+  var r=DB.rentals.find(function(x){return x.id===b.rentalId});
+  if(!r)throw fail('Rental not found.',404);
+  if(r.renterId!==u.uid)throw fail('Only the renter can review this rental.',403);
+  if(r.status!=='Completed')throw fail('You can review only after the rental is completed.',400);
+  if(r.reviewed)throw fail('You already reviewed this rental.',409);
+  var rating=Number(b.rating);
+  if(!(rating>=1&&rating<=5))throw fail('Select a star rating.',400,{rating:'Select a star rating.'});
+  var mine=CURRENT||{},item=itemById(r.itemId);
+  var batch=fbDb.batch();
+  batch.set(fbDb.collection(COL.reviews).doc(),{rentalId:r.id,itemId:r.itemId,ownerId:r.ownerId,userId:u.uid,
+    rating:rating,text:String(b.text||'').trim(),at:ts()});
+  batch.update(fbDb.collection(COL.rentals).doc(r.id),{reviewed:true});
+  batch.set(notifRef(),{userId:r.ownerId,type:'review',text:(mine.name||'A student')+' reviewed '+(item?item.name:'your item')+'.',
+    link:item?'#/item/'+item.id:'#/dashboard',read:false,at:ts()});
+  return batch.commit().then(function(){return {ok:true}});
+}
+
+/* ---- notifications ---- */
+function fbMarkNotifRead(id){
+  requireUser();
+  return fbDb.collection(COL.notifs).doc(id).update({read:true}).then(function(){return {ok:true}});
+}
+function fbMarkAllNotifsRead(){
+  var u=requireUser();
+  var pend=DB.notifs.filter(function(n){return n.userId===u.uid&&!n.read});
+  if(!pend.length)return Promise.resolve({ok:true});
+  var batch=fbDb.batch();
+  pend.forEach(function(n){batch.update(fbDb.collection(COL.notifs).doc(n.id),{read:true})});
+  return batch.commit().then(function(){return {ok:true}});
+}
+function skeletonPage(){
+  var card='<div class="card pad"><div class="skel img"></div><div class="skel line" style="width:70%"></div><div class="skel line" style="width:45%"></div></div>';
+  return '<div class="container section"><div class="skel line" style="width:220px;height:26px"></div>'+
+    '<div class="skel line" style="width:340px"></div><div class="grid g3" style="margin-top:22px">'+card+card+card+'</div></div>';
+}
+function apiError(e){toast(e.offline?e.message:(e.message||'Something went wrong. Please try again.'),'err')}
+var CATS=['Calculators','Books','Lab Equipment','Electronics','Project Kits','Cycles','Furniture','Cameras','Sports Equipment','Other Essentials'];
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+function money(n){return '₹'+(Math.round(n*100)/100).toLocaleString('en-IN')}
+function toast(m,kind){var t=document.createElement('div');t.className='toast'+(kind?' '+kind:'');t.textContent=m;document.body.appendChild(t);setTimeout(function(){t.remove()},2600)}
+function notify(){/* notifications are created by the backend */}
+function userById(id){return load(K.users).find(function(u){return u.id===id})||null}
+function itemById(id){return load(K.items).find(function(i){return i.id===id})||null}
+function empty(title,sub){return '<div class="empty"><div class="big">📦</div><div style="font-weight:700;color:var(--text)">'+esc(title)+'</div>'+(sub?'<div style="margin-top:6px">'+esc(sub)+'</div>':'')+'</div>'}
+
+/* ---------- theme ---------- */
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem(K.theme,t)}
+applyTheme(localStorage.getItem(K.theme)||'light');
+document.getElementById('themeBtn').onclick=function(){applyTheme(document.documentElement.getAttribute('data-theme')==='light'?'dark':'light')};
+document.getElementById('burger').onclick=function(){document.getElementById('navlinks').classList.toggle('open')};
+
+/* ---------- router ---------- */
+function go(h){location.hash=h}
+window.addEventListener('hashchange',function(){render()});
+document.addEventListener('click',function(e){
+  var a=e.target.closest('a[data-nav]');if(a){document.getElementById('navlinks').classList.remove('open')}
 });
 
 function navHtml(){
-  var u = me(), h = location.hash || '#/';
-  var links = [['#/', 'Home'], ['#/browse', 'Browse Items'], ['#/categories', 'Categories'], ['#/how', 'How It Works']];
-  if (u) {
-    links = links.concat([
-      ['#/dashboard', 'Dashboard'],
-      ['#/rentals', 'My Rentals'],
-      ['#/listings', 'My Listings'],
-      ['#/messages', 'Messages'],
-      ['#/profile', 'Profile']
-    ]);
+  var u=me(),h=location.hash||'#/';
+  var links=[['#/','Home'],['#/browse','Browse Items'],['#/categories','Categories'],['#/how','How It Works']];
+  if(u){
+    var unMsg=load(K.msgs).filter(function(m){return m.to===u.id&&!m.read}).length;
+    var unN=load(K.notifs).filter(function(n){return n.userId===u.id&&!n.read}).length;
+    links=links.concat([['#/dashboard','Dashboard'],['#/rentals','My Rentals'],['#/listings','My Listings'],
+      ['#/messages','Messages'+(unMsg?'<span class="unread">'+unMsg+'</span>':'')],
+      ['#/notifications','Alerts'+(unN?'<span class="unread">'+unN+'</span>':'')],['#/profile','Profile']]);
   }
-  return links.map(function(l){
-    return '<a data-nav href="' + l[0] + '" class="' + (h === l[0] ? 'active' : '') + '">' + l[1] + '</a>';
-  }).join('');
+  return links.map(function(l){return '<a data-nav href="'+l[0]+'" class="'+(h===l[0]?'active':'')+'">'+l[1]+'</a>'}).join('');
 }
-
 function authHtml(){
-  var u = me();
-  if (!u) return '<a data-nav href="#/login" class="btn ghost sm">Login</a> <a data-nav href="#/register" class="btn sm">Register</a>';
-  var un = state.notifications.filter(function(n){
-    return n.userId === (u.id || u.uid) && !n.read;
-  }).length;
-  return '<a data-nav href="#/dashboard" class="btn ghost sm">' +
-    esc((u.name || 'Student').split(' ')[0]) + (un ? ' (' + un + ')' : '') +
-    '</a> <button class="btn sm danger" onclick="logout()">Logout</button>';
+  var u=me();
+  if(!u)return '<a data-nav href="#/login" class="btn ghost sm">Login</a> <a data-nav href="#/register" class="btn sm">Register</a>';
+  var un=load(K.notifs).filter(function(n){return n.userId===u.id&&!n.read}).length;
+  return '<a data-nav href="#/dashboard" class="btn ghost sm">'+esc(u.name.split(' ')[0])+(un?' ('+un+')':'')+'</a> <button class="btn sm danger" onclick="logout()">Logout</button>';
 }
+function logout(){fbAuth.signOut().then(function(){CURRENT=null;toast('Logged out');go('#/');return startListeners().then(function(){onData();render()})}).catch(apiError)}
 
 function render(){
-  document.getElementById('navlinks').innerHTML = navHtml();
-  document.getElementById('authArea').innerHTML = authHtml();
-  var h = (location.hash || '#/').slice(1), p = h.split('/').filter(Boolean), app = document.getElementById('app');
-  var u = me(), needs = ['dashboard', 'rentals', 'listings', 'messages', 'profile', 'add', 'edit', 'rent'];
-  if (needs.indexOf(p[0]) > -1 && !u) {
-    app.innerHTML = viewAuthWall();
-    return;
-  }
-  var v = {
-    '': viewHome,
-    'browse': viewBrowse,
-    'categories': viewCategories,
-    'how': viewHow,
-    'login': viewLogin,
-    'register': viewRegister,
-    'dashboard': viewDashboard,
-    'rentals': viewRentals,
-    'listings': viewListings,
-    'messages': viewMessages,
-    'profile': viewProfile,
-    'add': viewAddItem,
-    'edit': viewAddItem,
-    'item': viewItem,
-    'rent': viewRent
-  }[p[0] || ''];
-
-  app.innerHTML = v ? v(p) : '<div class="container section">' + empty('Page not found', '') + '</div>';
-  window.scrollTo(0, 0);
-
-  // Trigger post-render callbacks
-  if (p[0] === 'browse') bindBrowse();
-  if (p[0] === 'add' || p[0] === 'edit') bindItemForm();
-  if (p[0] === 'rent') bindRent();
-  if (p[0] === 'messages') {
-    var m = document.getElementById('msgs');
-    if (m) m.scrollTop = m.scrollHeight;
-  }
-  if (p[0] === 'dashboard') {
-    markNotificationsRead();
-  }
-  if (p[0] === 'register') {
-    updateRegisterYears();
-  }
-  if (p[0] === 'profile') {
-    updateProfileYears();
-  }
-
-  if (afterRender) {
-    var f = afterRender;
-    afterRender = null;
-    f();
-  }
+  document.getElementById('navlinks').innerHTML=navHtml();
+  document.getElementById('authArea').innerHTML=authHtml();
+  var h=(location.hash||'#/').slice(1),p=h.split('/').filter(Boolean),app=document.getElementById('app');
+  if(!BOOTED){app.innerHTML=skeletonPage();return}
+  var u=me(),needs=['dashboard','rentals','listings','messages','profile','add','edit','rent','notifications'];
+  if(needs.indexOf(p[0])>-1&&!u){app.innerHTML=viewAuthWall();return}
+  var v={'':viewHome,'browse':viewBrowse,'categories':viewCategories,'how':viewHow,'login':viewLogin,'register':viewRegister,
+    'dashboard':viewDashboard,'rentals':viewRentals,'listings':viewListings,'messages':viewMessages,'profile':viewProfile,
+    'add':viewAddItem,'edit':viewAddItem,'item':viewItem,'rent':viewRent,'notifications':viewNotifications}[p[0]||''];
+  var banner=OFFLINE?'<div class="container" style="padding-top:18px"><div class="banner">We can\'t reach RentShare\'s cloud right now. Check your internet connection — your data is safe.</div></div>':'';
+  app.innerHTML=banner+(v?v(p):'<div class="container section">'+empty('Page not found','This page does not exist. Use the menu to continue.')+'</div>');
+  window.scrollTo(0,0);
+  if(afterRender){var f=afterRender;afterRender=null;f()}
 }
+var afterRender=null;
+function viewAuthWall(){return '<div class="container section"><div class="card pad" style="max-width:460px;margin:0 auto;text-align:center"><h2>Login required</h2><p class="muted">Please log in or create a student account to continue.</p><div class="row" style="justify-content:center"><a class="btn" data-nav href="#/login">Login</a><a class="btn ghost" data-nav href="#/register">Register</a></div></div></div>'}
 
-function viewAuthWall(){
-  return '<div class="container section"><div class="card pad" style="max-width:460px;margin:0 auto;text-align:center">' +
-    '<h2>Login required</h2><p class="muted">Please log in or create a student account to continue.</p>' +
-    '<div class="row" style="justify-content:center">' +
-    '<a class="btn" data-nav href="#/login">Login</a>' +
-    '<a class="btn ghost" data-nav href="#/register">Register</a>' +
-    '</div></div></div>';
-}
-
-/* ---------- Home ---------- */
+/* ---------- home ---------- */
 function viewHome(){
-  var latest = state.items.slice().sort(function(a, b){
-    return (b.at || b.createdAt || 0) - (a.at || a.createdAt || 0);
-  }).slice(0, 3);
-
-  return '<section class="hero"><div class="container">' +
-    '<span class="pill">For college students only</span>' +
-    '<h1>Rent What You Need.<br>Share What You Own.</h1>' +
-    '<p class="muted" style="max-width:620px;font-size:17px">RentShare helps students borrow calculators, books, lab equipment, cycles, cameras and more for a few hours or days — instead of buying them. List the things you already own and earn from them.</p>' +
-    '<div class="hero-actions"><a class="btn" data-nav href="#/browse">Browse Items</a><a class="btn ghost" data-nav href="#/add">Add Item</a></div>' +
-    '</div></section>' +
-    '<section class="section"><div class="container"><div class="between"><h2>Categories</h2><a class="muted" data-nav href="#/categories">View all →</a></div>' +
-    '<div class="grid g4" style="margin-top:14px">' + CATS.slice(0, 8).map(function(c){
-      return '<div class="card cat" onclick="location.hash=\'#/browse?cat=' + encodeURIComponent(c) + '\'">' + esc(c) + '</div>';
-    }).join('') + '</div></div></section>' +
-    '<section class="section" style="padding-top:0"><div class="container"><h2>Recently listed</h2>' +
-    (latest.length ? '<div class="grid g3" style="margin-top:14px">' + latest.map(itemCard).join('') + '</div>' : empty('No items available yet.', 'Be the first student to list an item for rent.')) +
-    '</div></section>' +
-    '<section class="section" style="padding-top:0"><div class="container"><h2>How RentShare works</h2><div class="grid g4" style="margin-top:14px">' +
-    [['1','Create your student account','Register with your college email.'],['2','List or search','Add unused items, or search what you need.'],['3','Request &amp; chat','Send a rental request and message the owner.'],['4','Return &amp; review','Complete the rental and leave a rating.']]
-    .map(function(s){
-      return '<div class="card pad"><div class="badge b">Step ' + s[0] + '</div><h3 style="margin-top:10px;font-size:17px">' + s[1] + '</h3><p class="muted" style="margin:0">' + s[2] + '</p></div>';
-    }).join('') + '</div></div></section>' +
-    '<section class="section" style="padding-top:0"><div class="container"><h2>Why students use RentShare</h2><div class="grid g3" style="margin-top:14px">' +
-    [['Save money','Pay by the hour or day instead of buying items you need once.'],['Earn from idle items','Your old calculator or cycle can pay for itself.'],['Campus-first','Pickup locations, deposits and chat built for college life.']]
-    .map(function(b){
-      return '<div class="card pad"><h3 style="font-size:17px">' + b[0] + '</h3><p class="muted" style="margin:0">' + b[1] + '</p></div>';
-    }).join('') + '</div></div></section>';
+  var items=load(K.items);
+  var latest=items.slice().sort(function(a,b){return b.at-a.at}).slice(0,3);
+  var revs=load(K.reviews);
+  var counts={};items.forEach(function(i){counts[i.category]=(counts[i.category]||0)+1});
+  var icons={'Calculators':'🔢','Books':'📚','Lab Equipment':'🔬','Electronics':'💻','Project Kits':'🛠️','Cycles':'🚲','Furniture':'🛋️','Cameras':'📷','Sports Equipment':'🏸','Other Essentials':'🎒'};
+  return '<section class="hero"><div class="container">'+
+  '<span class="pill">🎓 For college students only</span>'+
+  '<h1>Rent What You Need.<br>Share What You Own.</h1>'+
+  '<p class="muted" style="max-width:640px;font-size:17px">RentShare helps students borrow calculators, books, lab equipment, cycles, cameras and more for a few hours or days — instead of buying them. List the things you already own and earn from them.</p>'+
+  '<div class="hero-actions"><a class="btn" data-nav href="#/browse">Browse Items</a><a class="btn ghost" data-nav href="#/add">List Your Item</a></div>'+
+  '<div class="hero-stats muted">'+
+    '<div><span>'+items.length+'</span>items listed by students</div>'+
+    '<div><span>'+STATS.students+'</span>student accounts</div>'+
+    '<div><span>'+revs.length+'</span>reviews after real rentals</div>'+
+  '</div>'+
+  '</div></section>'+
+  '<section class="section"><div class="container"><div class="between"><h2>Popular categories</h2><a class="muted" data-nav href="#/categories">View all →</a></div>'+
+  '<div class="grid g4" style="margin-top:16px">'+CATS.slice(0,8).map(function(c){
+    var n=counts[c]||0;
+    return '<div class="card cat" onclick="location.hash=\'#/browse?cat='+encodeURIComponent(c)+'\'"><div style="font-size:24px">'+(icons[c]||'📦')+'</div>'+esc(c)+
+      '<div class="muted" style="font-weight:500;font-size:12.5px;margin-top:4px">'+n+' item'+(n===1?'':'s')+'</div></div>';
+  }).join('')+'</div></div></section>'+
+  '<section class="section" style="padding-top:0"><div class="container"><div class="between"><h2>Recently listed</h2>'+(latest.length?'<a class="muted" data-nav href="#/browse">See everything →</a>':'')+'</div>'+
+  (latest.length?'<div class="grid g3" style="margin-top:16px">'+latest.map(itemCard).join(''):'<div style="margin-top:16px">'+empty('No items listed yet.','Be the first student to list an item — nothing here is pre-filled.')+'</div>')+
+  (latest.length?'</div>':'')+
+  '</div></section>'+
+  '<section class="section" style="padding-top:0"><div class="container"><h2>How it works</h2><div class="grid g4" style="margin-top:16px">'+
+  [['🎓','Create your student account','Register with your college email — takes a minute.'],['🔍','List or search','Add unused items, or search for what you need today.'],['💬','Request &amp; chat','Send a rental request and message the owner directly.'],['⭐','Return &amp; review','Complete the rental and rate the experience.']]
+  .map(function(x,n){return '<div class="card pad step"><div class="ic">'+x[0]+'</div><div class="badge b">Step '+(n+1)+'</div><h3 style="margin-top:10px;font-size:17px">'+x[1]+'</h3><p class="muted" style="margin:0">'+x[2]+'</p></div>'}).join('')+'</div></div></section>'+
+  '<section class="section" style="padding-top:0"><div class="container"><h2>Why students use RentShare</h2><div class="grid g3" style="margin-top:16px">'+
+  [['💸','Save money','Pay by the hour or day instead of buying items you need once.'],['📈','Earn from idle items','Your old calculator or cycle can pay for itself.'],['🏫','Campus-first','Pickup locations, deposits and chat built for college life.']]
+  .map(function(b){return '<div class="card pad step"><div class="ic">'+b[0]+'</div><h3 style="font-size:17px">'+b[1]+'</h3><p class="muted" style="margin:0">'+b[2]+'</p></div>'}).join('')+'</div></div></section>'+
+  '<section class="section" style="padding-top:0"><div class="container"><h2>Trust &amp; safety</h2>'+
+  '<p class="muted" style="max-width:660px">Every rental on RentShare happens between two verified student accounts, with a clear record of who holds what and for how long.</p>'+
+  '<div class="trust" style="margin-top:16px">'+
+  [['🔐','Secure accounts','Passwords are hashed and never stored or shown in plain text. Your session is protected by a signed token.'],
+   ['📋','Secure rental handover','Each item carries a unique RentShare identifier, and each rental records handover and return status so both students agree on the condition.'],
+   ['💰','Deposits you can see','The security deposit and the exact rental cost are calculated before you send a request — no hidden charges.']]
+  .map(function(t){return '<div class="card"><div class="ic">'+t[0]+'</div><strong>'+t[1]+'</strong><p class="muted" style="margin:6px 0 0;font-size:13.5px">'+t[2]+'</p></div>'}).join('')+'</div>'+
+  '<div class="card pad between" style="margin-top:18px"><div><strong>Ready to start?</strong><div class="muted" style="font-size:13.5px">Create your student account and list your first item.</div></div>'+
+  '<div class="row">'+(me()?'<a class="btn" data-nav href="#/add">List Your Item</a>':'<a class="btn" data-nav href="#/register">Create account</a><a class="btn ghost" data-nav href="#/browse">Browse items</a>')+'</div></div>'+
+  '</div></section>';
 }
-
 function itemCard(i){
-  var o = userById(i.ownerId);
-  var now = new Date();
-  var isCurrentlyBooked = state.rentals.some(function(r){
-    return r.itemId === i.id && (r.status === 'Accepted' || r.status === 'Active') &&
-      now >= new Date(r.start) && now <= new Date(r.end);
-  });
-  var isAvailable = i.available && !isCurrentlyBooked;
-  var statusBadge = isAvailable ? '<span class="badge ok">Available</span>' : '<span class="badge no">' + (isCurrentlyBooked ? 'Rented Out' : 'Unavailable') + '</span>';
-
-  return '<div class="card pad itemcard" onclick="location.hash=\'#/item/' + i.id + '\'">' +
-    (i.image ? '<img class="item-img" src="' + esc(i.image) + '" alt="' + esc(i.name) + '" onerror="this.style.display=\'none\'">' : '<div class="item-img" style="display:grid;place-items:center;color:var(--muted)">No image</div>') +
-    '<div class="between" style="margin-top:12px"><strong>' + esc(i.name) + '</strong>' + statusBadge + '</div>' +
-    '<div class="row" style="margin-top:6px"><span class="badge">' + esc(i.category) + '</span><span class="badge">' + esc(i.condition) + '</span></div>' +
-    '<p class="muted" style="margin:10px 0 6px;font-size:13.5px">' + esc((i.description || '').slice(0, 90)) + '</p>' +
-    '<div class="between"><div><strong>' + money(i.perHour) + '</strong><span class="muted">/hr · </span><strong>' + money(i.perDay) + '</strong><span class="muted">/day</span></div></div>' +
-    '<div class="muted" style="font-size:12.5px;margin-top:6px">📍 ' + esc(i.location) + (o ? ' · ' + esc(o.name) : '') + '</div></div>';
+  var o=userById(i.ownerId);
+  return '<div class="card pad itemcard" onclick="location.hash=\'#/item/'+i.id+'\'">'+
+  (i.image?'<img class="item-img" src="'+esc(i.image)+'" alt="'+esc(i.name)+'" onerror="this.style.display=\'none\'">':'<div class="item-img" style="display:grid;place-items:center;color:var(--muted)">No image</div>')+
+  '<div class="between" style="margin-top:12px"><strong>'+esc(i.name)+'</strong><span class="badge '+(i.available?'ok':'no')+'">'+(i.available?'Available':'Unavailable')+'</span></div>'+
+  '<div class="row" style="margin-top:6px"><span class="badge">'+esc(i.category)+'</span><span class="badge">'+esc(i.condition)+'</span></div>'+
+  '<p class="muted" style="margin:10px 0 6px;font-size:13.5px">'+esc((i.description||'').slice(0,90))+'</p>'+
+  '<div class="between"><div><strong>'+money(i.perHour)+'</strong><span class="muted">/hr · </span><strong>'+money(i.perDay)+'</strong><span class="muted">/day</span></div></div>'+
+  '<div class="muted" style="font-size:12.5px;margin-top:6px">📍 '+esc(i.location)+(o?' · '+esc(o.name):'')+'</div></div>';
 }
 
-/* ---------- Course & Year of Study Helper ---------- */
-var COURSE_DURATIONS = {
-  'B.Tech': 4
-};
-
-var COURSES = ['B.Tech'];
-
-function yearLabel(n){
-  if (n === 1) return '1st Year';
-  if (n === 2) return '2nd Year';
-  if (n === 3) return '3rd Year';
-  return n + 'th Year';
-}
-
-function getCourseDuration(courseName, branchName){
-  return 4;
-}
-
-function getCourseYears(courseName, branchName){
-  return {
-    duration: '4 Years',
-    durYears: 4,
-    years: ['1st Year', '2nd Year', '3rd Year', '4th Year']
-  };
-}
-
-function updateRegisterYears(){
-  var yearEl = document.getElementById('regYearSelect') || document.querySelector('#regForm select[name="year"]');
-  var durEl = document.getElementById('courseDurationText');
-  if (!yearEl) return;
-
-  if (durEl) durEl.textContent = 'Course Duration: 4 Years';
-
-  var previousYear = yearEl.value;
-  yearEl.innerHTML = '';
-
-  var defaultOpt = document.createElement('option');
-  defaultOpt.value = '';
-  defaultOpt.textContent = 'Select year';
-  yearEl.appendChild(defaultOpt);
-
-  var allowedYears = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
-  var isPreviousYearValid = false;
-  allowedYears.forEach(function(y){
-    var opt = document.createElement('option');
-    opt.value = y;
-    opt.textContent = y;
-    if (previousYear && (previousYear === y || previousYear === y.replace(/[^0-9]/g, ''))) {
-      opt.selected = true;
-      isPreviousYearValid = true;
-    }
-    yearEl.appendChild(opt);
-  });
-
-  if (!isPreviousYearValid) {
-    yearEl.value = '';
-  }
-}
-
-/* ---------- Authentication Forms & Logic ---------- */
+/* ---------- auth ---------- */
 function viewRegister(){
-  var allowedYears = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
-  return '<div class="container section"><div class="card pad" style="max-width:540px;margin:0 auto">' +
-    '<h2>Create your student account</h2><p class="muted">Only college students can join RentShare.</p>' +
-    '<form id="regForm" novalidate>' +
-    fld('Full Name', 'name') + fld('College Name', 'college') +
-    '<label>Course</label><select name="course" id="regCourse" onchange="updateRegisterYears()">' +
-    '<option value="B.Tech" selected>B.Tech</option>' +
-    '</select><div class="err" data-e="course"></div>' +
-    fld('Branch', 'branch') +
-    '<div class="between"><label style="margin:14px 0 6px">Current Year of Study</label><span class="muted" style="font-size:12px;margin-top:14px" id="courseDurationText">Course Duration: 4 Years</span></div>' +
-    '<select name="year" id="regYearSelect"><option value="">Select year</option>' + allowedYears.map(function(y){
-      return '<option value="' + y + '">' + y + '</option>';
-    }).join('') + '</select><div class="err" data-e="year"></div>' +
-    fld('College Email', 'email', 'email') + fld('Password', 'password', 'password') + fld('Confirm Password', 'confirm', 'password') +
-    '<button class="btn" style="margin-top:16px;width:100%" type="submit">Register</button></form>' +
-    '<p class="muted" style="margin-top:12px">Already have an account? <a data-nav href="#/login" style="color:var(--primary);font-weight:650">Login</a></p></div></div>';
+  return '<div class="container section"><div class="card pad" style="max-width:540px;margin:0 auto">'+
+  '<h2>Create your student account</h2><p class="muted">Only college students can join RentShare.</p>'+
+  '<form id="regForm" novalidate>'+
+  fld('Full Name','name')+fld('College Name','college')+fld('Branch','branch')+
+  '<label>Year of Study</label><select name="year"><option value="">Select year</option>'+[1,2,3,4,5].map(function(y){return '<option>'+y+'</option>'}).join('')+'</select><div class="err" data-e="year"></div>'+
+  fld('College Email','email','email')+fld('Password','password','password')+fld('Confirm Password','confirm','password')+
+  '<button class="btn" style="margin-top:16px;width:100%">Register</button></form>'+
+  '<p class="muted" style="margin-top:12px">Already have an account? <a data-nav href="#/login" style="color:var(--primary);font-weight:650">Login</a></p></div></div>';
 }
-
+function fld(l,n,t){return '<label>'+l+'</label><input name="'+n+'" type="'+(t||'text')+'"><div class="err" data-e="'+n+'"></div>'}
 function viewLogin(){
-  return '<div class="container section"><div class="card pad" style="max-width:440px;margin:0 auto">' +
-    '<h2>Welcome back</h2><p class="muted">Log in to manage your listings and rentals.</p>' +
-    '<form id="loginForm" novalidate>' + fld('College Email', 'email', 'email') + fld('Password', 'password', 'password') +
-    '<button class="btn" style="margin-top:16px;width:100%" type="submit">Login</button></form>' +
-    '<p class="muted" style="margin-top:12px">New here? <a data-nav href="#/register" style="color:var(--primary);font-weight:650">Create an account</a></p></div></div>';
+  return '<div class="container section"><div class="card pad" style="max-width:440px;margin:0 auto">'+
+  '<h2>Welcome back</h2><p class="muted">Log in to manage your listings and rentals.</p>'+
+  '<form id="loginForm" novalidate>'+fld('College Email','email','email')+fld('Password','password','password')+
+  '<button class="btn" style="margin-top:16px;width:100%">Login</button></form>'+
+  '<p class="muted" style="margin-top:12px">New here? <a data-nav href="#/register" style="color:var(--primary);font-weight:650">Create an account</a></p></div></div>';
 }
-
-document.addEventListener('submit', function(e){
-  var f = e.target;
-  if (f.id === 'regForm') { e.preventDefault(); doRegister(f); }
-  if (f.id === 'loginForm') { e.preventDefault(); doLogin(f); }
-  if (f.id === 'itemForm') { e.preventDefault(); doItem(f); }
-  if (f.id === 'rentForm') { e.preventDefault(); doRent(f); }
-  if (f.id === 'profileForm') { e.preventDefault(); doProfile(f); }
-  if (f.id === 'reviewForm') { e.preventDefault(); doReview(f); }
-  if (f.id === 'msgForm') { e.preventDefault(); doSend(f); }
+document.addEventListener('submit',function(e){
+  var f=e.target;
+  if(f.id==='regForm'){e.preventDefault();doRegister(f)}
+  if(f.id==='loginForm'){e.preventDefault();doLogin(f)}
+  if(f.id==='itemForm'){e.preventDefault();doItem(f)}
+  if(f.id==='rentForm'){e.preventDefault();doRent(f)}
+  if(f.id==='profileForm'){e.preventDefault();doProfile(f)}
+  if(f.id==='reviewForm'){e.preventDefault();doReview(f)}
+  if(f.id==='msgForm'){e.preventDefault();doSend(f)}
 });
-
-async function doRegister(f){
-  var d = {}, errs = {};
-  ['name','college','course','branch','year','email','password','confirm'].forEach(function(n){ d[n] = val(f, n); });
-  ['name','college','branch','year','email','password'].forEach(function(n){ if (!d[n]) errs[n] = 'This field is required.'; });
-
-  var allowedYears = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
-  if (d.course && d.course !== 'B.Tech') {
-    errs.course = 'Only B.Tech course is available.';
-  }
-  if (d.year) {
-    var isYearValid = (allowedYears.indexOf(d.year) > -1 || ['1','2','3','4'].indexOf(d.year) > -1);
-    if (!isYearValid || d.year === '5th Year' || d.year === '5' || parseInt(d.year, 10) > 4) {
-      errs.year = 'B.Tech is a 4-year course. Only 1st to 4th Year are allowed.';
-    }
-  }
-
-  if (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)) errs.email = 'Enter a valid email address.';
-  if (d.password && d.password.length < 6) errs.password = 'Password must be at least 6 characters.';
-  if (d.password && d.confirm !== d.password) errs.confirm = 'Passwords do not match.';
-  if (!setErrs(f, errs)) return;
-
-  var btn = f.querySelector('button');
-  if (btn) { btn.disabled = true; btn.textContent = 'Registering...'; }
-
-  try {
-    var cred = await auth.createUserWithEmailAndPassword(d.email, d.password);
-    var uid = cred.user.uid;
-    await cred.user.updateProfile({ displayName: d.name });
-
-    var formattedYear = (['1','2','3','4'].indexOf(d.year) > -1 ? yearLabel(parseInt(d.year, 10)) : d.year);
-
-    var profileData = {
-      uid: uid,
-      id: uid,
-      name: d.name,
-      college: d.college,
-      course: 'B.Tech',
-      branch: d.branch,
-      year: formattedYear,
-      email: d.email,
-      at: Date.now(),
-      createdAt: Date.now()
-    };
-
-    await db.collection('users').doc(uid).set(profileData);
-    currentUser = profileData;
-    state.users[uid] = profileData;
-
-    toast('Account created successfully');
-    go('#/dashboard');
-  } catch (err) {
-    console.error('Registration error:', err);
-    if (err.code === 'auth/email-already-in-use') {
-      setErrs(f, { email: 'An account with this email already exists.' });
-    } else if (err.code === 'auth/invalid-email') {
-      setErrs(f, { email: 'Invalid email address.' });
-    } else if (err.code === 'auth/operation-not-allowed') {
-      setErrs(f, { email: 'Email/Password sign-in is not enabled in Firebase Console. Enable it in Authentication > Sign-in method.' });
-    } else {
-      setErrs(f, { password: err.message || 'Registration failed.' });
-    }
-    if (btn) { btn.disabled = false; btn.textContent = 'Register'; }
-  }
+function setErrs(form,errs){
+  form.querySelectorAll('.err').forEach(function(d){d.textContent=errs[d.dataset.e]||''});
+  return Object.keys(errs).length===0;
+}
+function val(f,n){var el=f.elements[n];return el?String(el.value||'').trim():''}
+function doRegister(f){
+  var d={},errs={};['name','college','branch','year','email','password','confirm'].forEach(function(n){d[n]=val(f,n)});
+  ['name','college','branch','year','email','password'].forEach(function(n){if(!d[n])errs[n]='This field is required.'});
+  if(d.email&&!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email))errs.email='Enter a valid email address.';
+  if(d.password&&d.password.length<6)errs.password='Password must be at least 6 characters.';
+  if(d.password&&d.confirm!==d.password)errs.confirm='Passwords do not match.';
+  if(!setErrs(f,errs))return;
+  api('/auth/register',{method:'POST',body:{name:d.name,college:d.college,branch:d.branch,year:d.year,email:d.email,password:d.password}})
+    .then(function(){toast('Account created — welcome to RentShare','ok');go('#/dashboard');return refresh()})
+    .catch(function(e){if(e.errors)setErrs(f,e.errors);else apiError(e)});
+}
+function doLogin(f){
+  var email=val(f,'email'),pw=val(f,'password'),errs={};
+  if(!email)errs.email='This field is required.';
+  else if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))errs.email='Enter a valid email address.';
+  if(!pw)errs.password='This field is required.';
+  if(!setErrs(f,errs))return;
+  api('/auth/login',{method:'POST',body:{email:email,password:pw}})
+    .then(function(r){toast('Welcome back, '+String((r.user&&r.user.name)||'student').split(' ')[0]);go('#/dashboard');return refresh()})
+    .catch(function(e){if(e.errors)setErrs(f,e.errors);else apiError(e)});
 }
 
-async function doLogin(f){
-  var email = val(f, 'email'), pw = val(f, 'password'), errs = {};
-  if (!email) errs.email = 'This field is required.';
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) errs.email = 'Enter a valid email address.';
-  if (!pw) errs.password = 'This field is required.';
-  if (!setErrs(f, errs)) return;
-
-  var btn = f.querySelector('button');
-  if (btn) { btn.disabled = true; btn.textContent = 'Logging in...'; }
-
-  try {
-    var cred = await auth.signInWithEmailAndPassword(email, pw);
-    var uid = cred.user.uid;
-    var userDoc = await db.collection('users').doc(uid).get();
-    if (userDoc.exists) {
-      currentUser = Object.assign({ uid: uid, id: uid }, userDoc.data());
-    } else {
-      currentUser = { uid: uid, id: uid, name: cred.user.displayName || email.split('@')[0], email: email };
-    }
-    state.users[uid] = currentUser;
-    toast('Welcome back, ' + (currentUser.name || 'Student').split(' ')[0]);
-    go('#/dashboard');
-  } catch (err) {
-    console.error('Login error:', err);
-    setErrs(f, { password: 'Invalid email or password.' });
-    if (btn) { btn.disabled = false; btn.textContent = 'Login'; }
-  }
-}
-
-async function logout(){
-  try {
-    await auth.signOut();
-    currentUser = null;
-    toast('Logged out');
-    go('#/');
-  } catch (err) {
-    console.error('Logout error:', err);
-  }
-}
-
-/* ---------- Categories / How It Works ---------- */
+/* ---------- categories / how ---------- */
 function viewCategories(){
-  return '<div class="container section"><h2>Categories</h2><p class="muted">Browse by what you need. Items appear here once students list them.</p>' +
-    '<div class="grid g4" style="margin-top:16px">' + CATS.map(function(c){
-      var n = state.items.filter(function(i){ return i.category === c; }).length;
-      return '<div class="card cat" onclick="location.hash=\'#/browse?cat=' + encodeURIComponent(c) + '\'">' + esc(c) +
-        '<div class="muted" style="font-weight:500;font-size:13px;margin-top:4px">' + n + ' item' + (n === 1 ? '' : 's') + '</div></div>';
-    }).join('') + '</div></div>';
+  var items=load(K.items);
+  return '<div class="container section"><h2>Categories</h2><p class="muted">Browse by what you need. Items appear here once students list them.</p>'+
+  '<div class="grid g4" style="margin-top:16px">'+CATS.map(function(c){
+    var n=items.filter(function(i){return i.category===c}).length;
+    return '<div class="card cat" onclick="location.hash=\'#/browse?cat='+encodeURIComponent(c)+'\'">'+esc(c)+'<div class="muted" style="font-weight:500;font-size:13px;margin-top:4px">'+n+' item'+(n===1?'':'s')+'</div></div>';
+  }).join('')+'</div></div>';
 }
-
 function viewHow(){
-  var steps = [
-    ['Register with your college email', 'Your account is created only when you register — nothing is pre-filled.'],
-    ['List an item or search', 'Add unused items with hourly/daily pricing, a deposit and a pickup location.'],
-    ['Send a rental request', 'Pick hourly or daily, choose start and end times, and the total is calculated for you.'],
-    ['Owner accepts and you meet on campus', 'Chat directly with the other student to arrange pickup.'],
-    ['Return the item', 'The owner marks it returned and the rental is completed.'],
-    ['Leave a review', 'Rate the experience so other students can trust the platform.']
-  ];
-  return '<div class="container section"><h2>How RentShare works</h2><div class="grid" style="margin-top:16px">' +
-    steps.map(function(s, n){
-      return '<div class="card pad row" style="align-items:flex-start"><span class="badge b">' + (n + 1) + '</span><div><strong>' + s[0] + '</strong><div class="muted">' + s[1] + '</div></div></div>';
-    }).join('') + '</div></div>';
+  var steps=[['Register with your college email','Your account is created only when you register — nothing is pre-filled.'],
+  ['List an item or search','Add unused items with hourly/daily pricing, a deposit and a pickup location.'],
+  ['Send a rental request','Pick hourly or daily, choose start and end times, and the total is calculated for you.'],
+  ['Owner accepts and you meet on campus','Chat directly with the other student to arrange pickup.'],
+  ['Return the item','The owner marks it returned and the rental is completed.'],
+  ['Leave a review','Rate the experience so other students can trust the platform.']];
+  return '<div class="container section"><h2>How RentShare works</h2><div class="grid" style="margin-top:16px">'+
+  steps.map(function(s,n){return '<div class="card pad row" style="align-items:flex-start"><span class="badge b">'+(n+1)+'</span><div><strong>'+s[0]+'</strong><div class="muted">'+s[1]+'</div></div></div>'}).join('')+'</div></div>';
 }
 
-/* ---------- Browse Items ---------- */
+/* ---------- browse ---------- */
+var filters={q:'',cat:'',max:'',avail:''};
 function viewBrowse(){
-  var hash = location.hash, m = hash.match(/cat=([^&]+)/);
-  if (m) filters.cat = decodeURIComponent(m[1]);
-  return '<div class="container section"><div class="between"><h2>Browse Items</h2><a class="btn sm" data-nav href="#/add">+ Add Item</a></div>' +
-    '<div class="card pad grid g4" style="margin:14px 0">' +
-    '<div><label>Search</label><input id="fq" placeholder="Search items…" value="' + esc(filters.q) + '"></div>' +
-    '<div><label>Category</label><select id="fcat"><option value="">All categories</option>' + CATS.map(function(c){ return '<option ' + (filters.cat === c ? 'selected' : '') + '>' + c + '</option>'; }).join('') + '</select></div>' +
-    '<div><label>Max price / day</label><input id="fmax" type="number" min="0" placeholder="Any" value="' + esc(filters.max) + '"></div>' +
-    '<div><label>Availability</label><select id="favail"><option value="">All</option><option value="1"' + (filters.avail === '1' ? ' selected' : '') + '>Available only</option><option value="0"' + (filters.avail === '0' ? ' selected' : '') + '>Unavailable</option></select></div>' +
-    '</div><div id="results"></div></div>';
+  var hash=location.hash,m=hash.match(/cat=([^&]+)/);if(m)filters.cat=decodeURIComponent(m[1]);
+  return '<div class="container section"><div class="between"><h2>Browse Items</h2><a class="btn sm" data-nav href="#/add">+ Add Item</a></div>'+
+  '<div class="card pad grid g4" style="margin:14px 0">'+
+  '<div><label>Search</label><input id="fq" placeholder="Search items…" value="'+esc(filters.q)+'"></div>'+
+  '<div><label>Category</label><select id="fcat"><option value="">All categories</option>'+CATS.map(function(c){return '<option '+(filters.cat===c?'selected':'')+'>'+c+'</option>'}).join('')+'</select></div>'+
+  '<div><label>Max price / day</label><input id="fmax" type="number" min="0" placeholder="Any" value="'+esc(filters.max)+'"></div>'+
+  '<div><label>Availability</label><select id="favail"><option value="">All</option><option value="1"'+(filters.avail==='1'?' selected':'')+'>Available only</option><option value="0"'+(filters.avail==='0'?' selected':'')+'>Unavailable</option></select></div>'+
+  '</div><div id="results"></div></div>';
 }
-
 function bindBrowse(){
-  var ids = ['fq', 'fcat', 'fmax', 'favail'], keys = ['q', 'cat', 'max', 'avail'];
-  ids.forEach(function(id, n){
-    var el = document.getElementById(id);
-    if (!el) return;
-    el.oninput = el.onchange = function(){
-      filters[keys[n]] = el.value;
-      drawResults();
-    };
-  });
+  var ids=['fq','fcat','fmax','favail'],keys=['q','cat','max','avail'];
+  ids.forEach(function(id,n){var el=document.getElementById(id);if(!el)return;el.oninput=el.onchange=function(){if(filters[keys[n]]===el.value)return;filters[keys[n]]=el.value;drawResults()}});
   drawResults();
 }
-
 function drawResults(){
-  var box = document.getElementById('results');
-  if (!box) return;
-  var now = new Date();
-  var list = state.items.filter(function(i){
-    var isCurrentlyBooked = state.rentals.some(function(r){
-      return r.itemId === i.id && (r.status === 'Accepted' || r.status === 'Active') &&
-        now >= new Date(r.start) && now <= new Date(r.end);
-    });
-    var isAvail = i.available && !isCurrentlyBooked;
-
-    if (filters.q && ((i.name || '') + ' ' + (i.description || '') + ' ' + (i.category || '')).toLowerCase().indexOf(filters.q.toLowerCase()) < 0) return false;
-    if (filters.cat && i.category !== filters.cat) return false;
-    if (filters.max !== '' && Number(i.perDay) > Number(filters.max)) return false;
-    if (filters.avail !== '' && String(isAvail ? 1 : 0) !== filters.avail) return false;
+  var box=document.getElementById('results');if(!box)return;
+  var list=load(K.items).filter(function(i){
+    if(filters.q&&(i.name+' '+i.description+' '+i.category).toLowerCase().indexOf(filters.q.toLowerCase())<0)return false;
+    if(filters.cat&&i.category!==filters.cat)return false;
+    if(filters.max!==''&&Number(i.perDay)>Number(filters.max))return false;
+    if(filters.avail!==''&&String(i.available?1:0)!==filters.avail)return false;
     return true;
-  }).sort(function(a, b){
-    return (b.at || b.createdAt || 0) - (a.at || a.createdAt || 0);
-  });
-
-  box.innerHTML = list.length ? '<div class="grid g3">' + list.map(itemCard).join('') + '</div>' :
-    (state.items.length ? empty('No items match your filters.', 'Try clearing the search or filters.') : empty('No items available yet.', 'Items will appear here once students list them.'));
+  }).sort(function(a,b){return b.at-a.at});
+  box.innerHTML=list.length?'<div class="grid g3">'+list.map(itemCard).join('')+'</div>'
+    :(load(K.items).length?empty('No items match your filters.','Try clearing the search or filters.'):empty('No items available yet.','Items will appear here once students list them.'));
 }
 
-/* ---------- Add / Edit Item ---------- */
+/* ---------- add / edit item ---------- */
 function viewAddItem(p){
-  var editing = p[0] === 'edit' ? itemById(p[1]) : null, u = me();
-  if (p[0] === 'edit' && (!editing || editing.ownerId !== (u.id || u.uid))) {
-    return '<div class="container section">' + empty('Item not found', '') + '</div>';
-  }
-  var i = editing || { name: '', category: '', description: '', image: '', condition: '', perHour: '', perDay: '', deposit: '', location: '', available: true };
-  return '<div class="container section"><div class="card pad" style="max-width:640px;margin:0 auto">' +
-    '<h2>' + (editing ? 'Edit item' : 'Add an item for rent') + '</h2>' +
-    '<form id="itemForm" data-id="' + (editing ? editing.id : '') + '" novalidate>' +
-    '<label>Item Name</label><input name="name" value="' + esc(i.name) + '"><div class="err" data-e="name"></div>' +
-    '<label>Category</label><select name="category"><option value="">Select a category</option>' + CATS.map(function(c){ return '<option ' + (i.category === c ? 'selected' : '') + '>' + c + '</option>'; }).join('') + '</select><div class="err" data-e="category"></div>' +
-    '<label>Description</label><textarea name="description" rows="3">' + esc(i.description) + '</textarea><div class="err" data-e="description"></div>' +
-    '<label>Upload Item Image (Firebase Storage)</label><input type="file" accept="image/*" id="imgFile">' +
-    '<label>or Image URL</label><input name="image" id="imgUrl" value="' + esc(i.image) + '" placeholder="https://…"><div class="err" data-e="image"></div>' +
-    '<label>Item Condition</label><select name="condition"><option value="">Select condition</option>' + ['New', 'Like New', 'Good', 'Fair'].map(function(c){ return '<option ' + (i.condition === c ? 'selected' : '') + '>' + c + '</option>'; }).join('') + '</select><div class="err" data-e="condition"></div>' +
-    '<div class="grid g3">' +
-    '<div><label>Price Per Hour (₹)</label><input name="perHour" type="number" min="0" value="' + esc(i.perHour) + '"><div class="err" data-e="perHour"></div></div>' +
-    '<div><label>Price Per Day (₹)</label><input name="perDay" type="number" min="0" value="' + esc(i.perDay) + '"><div class="err" data-e="perDay"></div></div>' +
-    '<div><label>Security Deposit (₹)</label><input name="deposit" type="number" min="0" value="' + esc(i.deposit) + '"><div class="err" data-e="deposit"></div></div></div>' +
-    '<label>Pickup Location</label><input name="location" value="' + esc(i.location) + '"><div class="err" data-e="location"></div>' +
-    '<label>Availability Status</label><select name="available"><option value="1"' + (i.available ? ' selected' : '') + '>Available</option><option value="0"' + (!i.available ? ' selected' : '') + '>Unavailable</option></select>' +
-    '<button class="btn" style="margin-top:16px;width:100%" type="submit">' + (editing ? 'Save changes' : 'Publish item') + '</button></form></div></div>';
+  var editing=p[0]==='edit'?itemById(p[1]):null,u=me();
+  if(p[0]==='edit'&&(!editing||editing.ownerId!==u.id))return '<div class="container section">'+empty('Item not found','')+'</div>';
+  var i=editing||{name:'',category:'',description:'',image:'',condition:'',perHour:'',perDay:'',deposit:'',location:'',available:true};
+  return '<div class="container section"><div class="card pad" style="max-width:640px;margin:0 auto">'+
+  '<h2>'+(editing?'Edit item':'Add an item for rent')+'</h2>'+
+  '<form id="itemForm" data-id="'+(editing?editing.id:'')+'" novalidate>'+
+  '<label>Item Name</label><input name="name" value="'+esc(i.name)+'"><div class="err" data-e="name"></div>'+
+  '<label>Category</label><select name="category"><option value="">Select a category</option>'+CATS.map(function(c){return '<option '+(i.category===c?'selected':'')+'>'+c+'</option>'}).join('')+'</select><div class="err" data-e="category"></div>'+
+  '<label>Description</label><textarea name="description" rows="3">'+esc(i.description)+'</textarea><div class="err" data-e="description"></div>'+
+  '<label>Image Upload</label><input type="file" accept="image/*" id="imgFile">'+
+  '<label>or Image URL</label><input name="image" id="imgUrl" value="'+esc(i.image)+'" placeholder="https://…"><div class="err" data-e="image"></div>'+
+  '<label>Item Condition</label><select name="condition"><option value="">Select condition</option>'+['New','Like New','Good','Fair'].map(function(c){return '<option '+(i.condition===c?'selected':'')+'>'+c+'</option>'}).join('')+'</select><div class="err" data-e="condition"></div>'+
+  '<div class="grid g3">'+
+  '<div><label>Price Per Hour (₹)</label><input name="perHour" type="number" min="0" value="'+esc(i.perHour)+'"><div class="err" data-e="perHour"></div></div>'+
+  '<div><label>Price Per Day (₹)</label><input name="perDay" type="number" min="0" value="'+esc(i.perDay)+'"><div class="err" data-e="perDay"></div></div>'+
+  '<div><label>Security Deposit (₹)</label><input name="deposit" type="number" min="0" value="'+esc(i.deposit)+'"><div class="err" data-e="deposit"></div></div></div>'+
+  '<label>Pickup Location</label><input name="location" value="'+esc(i.location)+'"><div class="err" data-e="location"></div>'+
+  '<label>Availability Status</label><select name="available"><option value="1"'+(i.available?' selected':'')+'>Available</option><option value="0"'+(!i.available?' selected':'')+'>Unavailable</option></select>'+
+  '<button class="btn" style="margin-top:16px;width:100%">'+(editing?'Save changes':'Publish item')+'</button></form></div></div>';
 }
-
 function bindItemForm(){
-  var f = document.getElementById('imgFile'), url = document.getElementById('imgUrl');
-  if (f) {
-    f.onchange = function(){
-      var file = f.files[0];
-      if (file && url) {
-        url.placeholder = 'Selected: ' + file.name + ' (will upload to Firebase Storage)';
-      }
-    };
-  }
-}
-
-async function doItem(f){
-  var u = me(), errs = {}, d = {};
-  if (!u) { toast('Please log in'); go('#/login'); return; }
-
-  ['name','category','description','image','condition','perHour','perDay','deposit','location'].forEach(function(n){ d[n] = val(f, n); });
-  ['name','category','description','condition','location'].forEach(function(n){ if (!d[n]) errs[n] = 'This field is required.'; });
-  ['perHour','perDay','deposit'].forEach(function(n){ if (d[n] === '' || isNaN(Number(d[n])) || Number(d[n]) < 0) errs[n] = 'Enter a valid amount.'; });
-  if (!setErrs(f, errs)) return;
-
-  var btn = f.querySelector('button[type="submit"]') || f.querySelector('button');
-  var origText = btn ? btn.textContent : '';
-  if (btn) { btn.disabled = true; btn.textContent = 'Saving...'; }
-
-  try {
-    var fileInput = document.getElementById('imgFile');
-    var imageUrl = d.image;
-
-    // Upload to Firebase Storage if a local file was chosen
-    if (fileInput && fileInput.files && fileInput.files[0]) {
-      var file = fileInput.files[0];
-      if (btn) btn.textContent = 'Uploading to Firebase Storage...';
-      var cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-      var storagePath = 'listings/' + Date.now() + '_' + cleanName;
-      var fileRef = storage.ref().child(storagePath);
-      var snap = await fileRef.put(file);
-      imageUrl = await snap.ref.getDownloadURL();
-    }
-
-    var id = f.dataset.id;
-    var itemData = {
-      name: d.name,
-      category: d.category,
-      description: d.description,
-      image: imageUrl || '',
-      condition: d.condition,
-      perHour: Number(d.perHour),
-      perDay: Number(d.perDay),
-      deposit: Number(d.deposit),
-      location: d.location,
-      available: val(f, 'available') === '1',
-      updatedAt: Date.now()
-    };
-
-    if (id) {
-      await db.collection('listings').doc(id).update(itemData);
-      toast('Item updated');
-    } else {
-      itemData.ownerId = u.id || u.uid;
-      itemData.at = Date.now();
-      itemData.createdAt = Date.now();
-      await db.collection('listings').add(itemData);
-      toast('Item published');
-    }
-    go('#/listings');
-  } catch (err) {
-    console.error('Error saving item:', err);
-    toast('Error: ' + (err.message || 'Failed to save item'));
-    if (btn) { btn.disabled = false; btn.textContent = origText; }
-  }
-}
-
-/* ---------- Item Details View ---------- */
-function viewItem(p){
-  var i = itemById(p[1]);
-  if (!i) return '<div class="container section">' + empty('Item not found', 'This listing no longer exists.') + '</div>';
-  var o = userById(i.ownerId), u = me();
-  var revs = state.reviews.filter(function(r){ return r.itemId === i.id; });
-  var avg = revs.length ? (revs.reduce(function(s, r){ return s + r.rating; }, 0) / revs.length) : 0;
-
-  var isOwner = u && (i.ownerId === (u.id || u.uid));
-
-  // Asynchronously query Firestore for live bookings of this item
-  getItemBookings(i.id).then(function(activeBookings){
-    var box = document.getElementById('itemBookingsBox');
-    if (!box) return;
-    if (activeBookings.length) {
-      box.innerHTML = '<strong>📅 Scheduled Bookings:</strong>' +
-        activeBookings.map(function(b){
-          return '<div class="muted" style="margin-top:4px">• ' + new Date(b.start).toLocaleString() + ' → ' + new Date(b.end).toLocaleString() + ' (' + esc(b.status) + ')</div>';
-        }).join('');
-    } else {
-      box.innerHTML = '<span style="color:var(--ok)">✓ No active bookings. Item is available for rent!</span>';
-    }
-  });
-
-  return '<div class="container section"><div class="grid g2">' +
-    '<div class="card pad">' + (i.image ? '<img src="' + esc(i.image) + '" alt="' + esc(i.name) + '" style="width:100%;border-radius:10px;object-fit:cover;max-height:360px">' : '<div class="item-img" style="height:280px;display:grid;place-items:center;color:var(--muted)">No image</div>') + '</div>' +
-    '<div class="card pad"><div class="between"><h2 style="margin:0">' + esc(i.name) + '</h2><span class="badge ' + (i.available ? 'ok' : 'no') + '">' + (i.available ? 'Available' : 'Unavailable') + '</span></div>' +
-    '<div class="row" style="margin:8px 0"><span class="badge b">' + esc(i.category) + '</span><span class="badge">Condition: ' + esc(i.condition) + '</span>' + (revs.length ? '<span class="badge">★ ' + avg.toFixed(1) + ' (' + revs.length + ')' : '') + '</div>' +
-    '<p class="muted">' + esc(i.description) + '</p>' +
-    '<table><tr><th>Price per hour</th><td>' + money(i.perHour) + '</td></tr><tr><th>Price per day</th><td>' + money(i.perDay) + '</td></tr><tr><th>Security deposit</th><td>' + money(i.deposit) + '</td></tr><tr><th>Pickup location</th><td>' + esc(i.location) + '</td></tr>' +
-    (o ? '<tr><th>Owner</th><td>' + esc(o.name) + ' · ' + esc(o.course ? o.course + ' ' : '') + esc(o.branch || '') + (o.year ? ', ' + esc(String(o.year).indexOf('Year') > -1 ? o.year : 'Year ' + o.year) : '') + '<br><span class="muted">' + esc(o.college || '') + '</span></td></tr>' : '') + '</table>' +
-    '<div id="itemBookingsBox" style="margin-top:12px;font-size:13px;padding:10px;border-radius:9px;background:var(--surface-2)">Checking booking availability…</div>' +
-    '<div class="row" style="margin-top:14px">' +
-    (isOwner ? '<a class="btn ghost" data-nav href="#/edit/' + i.id + '">Edit item</a><a class="btn ghost" data-nav href="#/dashboard">View requests</a><span class="muted" style="font-size:13px">You listed this item, so you cannot rent it.</span>'
-      : '<a class="btn" data-nav href="#/rent/' + i.id + '"' + (i.available ? '' : ' style="opacity:.6;pointer-events:none"') + '>Request to Rent</a>' +
-        (o ? '<button class="btn ghost" onclick="openChat(\'' + o.id + '\',\'' + i.id + '\')">Chat with Owner</button>' : '')) +
-    '</div></div></div>' +
-    '<div class="card pad" style="margin-top:16px"><h3>Reviews</h3>' +
-    (revs.length ? revs.map(function(r){
-      var ru = userById(r.userId);
-      return '<div style="border-top:1px solid var(--border);padding:10px 0"><strong>' + esc(ru ? ru.name : 'Student') + '</strong> <span class="stars">' + '★'.repeat(r.rating) + '</span><div class="muted">' + esc(r.text) + '</div></div>';
-    }).join('') : empty('No reviews yet.', 'Reviews appear after completed rentals.')) + '</div></div>';
-}
-
-/* ---------- Rent Item Form & Real Firestore Conflict Protection ---------- */
-function viewRent(p){
-  var i = itemById(p[1]), u = me();
-  if (!i) return '<div class="container section">' + empty('Item not found', '') + '</div>';
-  if (u && i.ownerId === (u.id || u.uid)) {
-    return '<div class="container section">' + empty('This is your own item.', 'Owners cannot rent their own items.') + '</div>';
-  }
-
-  return '<div class="container section"><div class="card pad" style="max-width:560px;margin:0 auto">' +
-    '<h2>Rent: ' + esc(i.name) + '</h2><p class="muted">' + money(i.perHour) + '/hour · ' + money(i.perDay) + '/day · Deposit ' + money(i.deposit) + '</p>' +
-    '<form id="rentForm" data-id="' + i.id + '" novalidate>' +
-    '<label>Rental type</label><select name="mode" id="rmode"><option value="hour">Hourly</option><option value="day">Daily</option></select>' +
-    '<div class="grid g2"><div><label>Start date &amp; time</label><input type="datetime-local" name="start" id="rstart"><div class="err" data-e="start"></div></div>' +
-    '<div><label>End date &amp; time</label><input type="datetime-local" name="end" id="rend"><div class="err" data-e="end"></div></div></div>' +
-    '<div id="rentBookingsBox" class="card pad" style="margin-top:14px;background:var(--surface-2)">Loading schedule availability…</div>' +
-    '<div class="card pad" id="calc" style="margin-top:14px;background:var(--surface-2)"></div>' +
-    '<div class="err" data-e="form" style="margin-top:8px;font-weight:600"></div>' +
-    '<button class="btn" style="margin-top:14px;width:100%" type="submit">Send Rental Request</button></form></div></div>';
-}
-
-function calcRental(i, mode, s, e){
-  var ms = new Date(e) - new Date(s);
-  if (!s || !e || isNaN(ms) || ms <= 0) return null;
-  var hours = ms / 3600000, units, cost;
-  if (mode === 'hour') {
-    units = Math.max(1, Math.ceil(hours));
-    cost = units * i.perHour;
-  } else {
-    units = Math.max(1, Math.ceil(hours / 24));
-    cost = units * i.perDay;
-  }
-  return { units: units, hours: hours, cost: cost, deposit: i.deposit, total: cost + i.deposit, mode: mode };
-}
-
-function bindRent(){
-  var f = document.getElementById('rentForm');
-  if (!f) return;
-  var itemId = f.dataset.id;
-  var i = itemById(itemId);
-  if (!i) return;
-
-  var itemBookings = [];
-  getItemBookings(itemId).then(function(b){
-    itemBookings = b;
-    var bookingsBox = document.getElementById('rentBookingsBox');
-    if (bookingsBox) {
-      if (itemBookings.length) {
-        bookingsBox.innerHTML = '<strong>⚠️ Existing Bookings for this item:</strong><div class="muted" style="font-size:12.5px;margin-top:4px">Your requested rental period cannot overlap with these accepted slots:</div>' +
-          itemBookings.map(function(b){
-            return '<div style="font-size:13px;font-weight:600;margin-top:4px;color:var(--warn)">• ' + new Date(b.start).toLocaleString() + ' → ' + new Date(b.end).toLocaleString() + ' (' + esc(b.status) + ')</div>';
-          }).join('');
-      } else {
-        bookingsBox.innerHTML = '<span style="color:var(--ok)">✓ No scheduling conflicts. Pick any start and end time.</span>';
-      }
-    }
-    upd();
-  });
-
-  function upd(){
-    var sVal = val(f, 'start'), eVal = val(f, 'end');
-    var r = calcRental(i, val(f, 'mode'), sVal, eVal), box = document.getElementById('calc');
-    var errBox = f.querySelector('.err[data-e="form"]');
-    var submitBtn = f.querySelector('button[type="submit"]') || f.querySelector('button');
-
-    if (sVal && eVal) {
-      var sDate = new Date(sVal), eDate = new Date(eVal);
-      if (sDate >= eDate) {
-        if (errBox) errBox.textContent = 'End time must be strictly after the start time.';
-        if (submitBtn) submitBtn.disabled = true;
-      } else {
-        var conflict = itemBookings.find(function(ex){
-          var exStart = new Date(ex.start), exEnd = new Date(ex.end);
-          return (sDate < exEnd && eDate > exStart);
-        });
-        if (conflict) {
-          if (errBox) errBox.textContent = '⚠️ Overlaps with an accepted booking from ' + new Date(conflict.start).toLocaleString() + ' to ' + new Date(conflict.end).toLocaleString() + '. Please choose another time slot.';
-          if (submitBtn) submitBtn.disabled = true;
-        } else {
-          if (errBox) errBox.textContent = '';
-          if (submitBtn) submitBtn.disabled = false;
-        }
-      }
-    } else {
-      if (errBox) errBox.textContent = '';
-      if (submitBtn) submitBtn.disabled = false;
-    }
-
-    if (!box) return;
-    box.innerHTML = r ? '<div class="between"><span>Duration</span><strong>' + r.units + ' ' + (r.mode === 'hour' ? 'hour' : 'day') + (r.units > 1 ? 's' : '') + '</strong></div>' +
-      '<div class="between"><span>Rental cost</span><strong>' + money(r.cost) + '</strong></div>' +
-      '<div class="between"><span>Security deposit</span><strong>' + money(r.deposit) + '</strong></div>' +
-      '<div class="between" style="border-top:1px solid var(--border);margin-top:8px;padding-top:8px"><span>Total payable</span><strong>' + money(r.total) + '</strong></div>'
-      : '<div class="muted">Select a valid start and end time to see the cost.</div>';
-  }
-
-  ['rmode', 'rstart', 'rend'].forEach(function(id){
-    var el = document.getElementById(id);
-    if (el) el.oninput = el.onchange = upd;
-  });
-  upd();
-}
-
-async function doRent(f){
-  var u = me();
-  if (!u) { toast('Please log in'); go('#/login'); return; }
-  var myUid = u.id || u.uid;
-  var itemId = f.dataset.id;
-  var i = itemById(itemId);
-  if (!i) { toast('Item not found'); return; }
-
-  // Prevent owners from renting their own items
-  if (i.ownerId === myUid) {
-    setErrs(f, { form: 'Owners cannot rent their own items.' });
-    return;
-  }
-
-  var s = val(f, 'start'), e = val(f, 'end');
-  var r = calcRental(i, val(f, 'mode'), s, e), errs = {};
-  if (!s) errs.start = 'Select a start time.';
-  if (!e) errs.end = 'Select an end time.';
-  if (!errs.start && !errs.end && !r) errs.form = 'End time must be after the start time.';
-  if (!setErrs(f, errs)) return;
-
-  var startDate = new Date(s), endDate = new Date(e);
-  if (startDate >= endDate) {
-    setErrs(f, { form: 'End time must be strictly after the start time.' });
-    return;
-  }
-
-  var btn = f.querySelector('button[type="submit"]') || f.querySelector('button');
-  if (btn) { btn.disabled = true; btn.textContent = 'Checking availability...'; }
-
-  try {
-    // 10. Rental conflicts checked using Firestore data
-    var snapshot = await db.collection('rentals').where('itemId', '==', i.id).get();
-    var existingRentals = [];
-    snapshot.forEach(function(doc){ existingRentals.push(Object.assign({ id: doc.id }, doc.data())); });
-
-    // Prevent duplicate requests by same user for overlapping dates
-    var duplicateReq = existingRentals.find(function(ex){
-      if (ex.renterId !== myUid) return false;
-      if (ex.status !== 'Requested' && ex.status !== 'Accepted' && ex.status !== 'Active') return false;
-      var exStart = new Date(ex.start), exEnd = new Date(ex.end);
-      return (startDate < exEnd && endDate > exStart);
-    });
-    if (duplicateReq) {
-      setErrs(f, {
-        form: 'You already have an existing rental request for this item during that period (' + duplicateReq.status + ').'
-      });
-      if (btn) { btn.disabled = false; btn.textContent = 'Send Rental Request'; }
-      return;
-    }
-
-    // Check if item is already booked (Accepted/Active) by any user during this period
-    var bookedConflict = existingRentals.find(function(ex){
-      if (ex.status !== 'Accepted' && ex.status !== 'Active') return false;
-      var exStart = new Date(ex.start), exEnd = new Date(ex.end);
-      return (startDate < exEnd && endDate > exStart);
-    });
-    if (bookedConflict) {
-      setErrs(f, {
-        form: 'This item is already booked from ' + new Date(bookedConflict.start).toLocaleString() + ' to ' + new Date(bookedConflict.end).toLocaleString() + '. Please choose different dates.'
-      });
-      if (btn) { btn.disabled = false; btn.textContent = 'Send Rental Request'; }
-      return;
-    }
-
-    btn.textContent = 'Sending request...';
-    var rentalData = {
-      itemId: i.id,
-      ownerId: i.ownerId,
-      renterId: myUid,
-      mode: r.mode,
-      units: r.units,
-      start: s,
-      end: e,
-      cost: r.cost,
-      deposit: r.deposit,
-      total: r.total,
-      status: 'Requested',
-      at: Date.now(),
-      createdAt: Date.now(),
-      reviewed: false
-    };
-
-    await db.collection('rentals').add(rentalData);
-    await notifyUser(i.ownerId, (u.name || 'Student') + ' requested to rent your "' + i.name + '".', 'rental_request', '#/dashboard');
-    toast('Rental request sent');
-    go('#/rentals');
-  } catch (err) {
-    console.error('Failed to submit rental request:', err);
-    setErrs(f, { form: 'Error: ' + (err.message || 'Please try again.') });
-    if (btn) { btn.disabled = false; btn.textContent = 'Send Rental Request'; }
-  }
-}
-
-/* ---------- Dashboard ---------- */
-function viewDashboard(){
-  var u = me();
-  if (!u) return '';
-  var myUid = u.id || u.uid;
-  var items = state.items.filter(function(i){ return i.ownerId === myUid; });
-  var mine = state.rentals.filter(function(r){ return r.renterId === myUid; });
-  var incoming = state.rentals.filter(function(r){ return r.ownerId === myUid; });
-  var earnings = incoming.filter(function(r){ return r.status === 'Completed'; }).reduce(function(s, r){ return s + r.cost; }, 0);
-  var held = incoming.filter(function(r){ return r.status === 'Accepted' || r.status === 'Active'; }).reduce(function(s, r){ return s + r.deposit; }, 0);
-  var notifs = state.notifications.filter(function(n){ return n.userId === myUid; });
-  var req = incoming.filter(function(r){ return r.status === 'Requested'; });
-
-  return '<div class="container section"><h2>Hello, ' + esc((u.name || 'Student').split(' ')[0]) + '</h2>' +
-    '<p class="muted">' + esc(u.course ? u.course + ' · ' : '') + esc(u.branch || '') + (u.year ? ' · ' + esc(String(u.year).indexOf('Year') > -1 ? u.year : 'Year ' + u.year) : '') + (u.college ? ' · ' + esc(u.college) : '') + '</p>' +
-    '<div class="grid g4" style="margin-top:16px">' +
-    stat('My Listed Items', items.length) + stat('My Rentals', mine.length) + stat('Earnings', money(earnings)) + stat('Deposits Held', money(held)) + '</div>' +
-    '<div class="grid g2" style="margin-top:16px">' +
-    '<div class="card pad"><div class="between"><h3>Incoming Rental Requests</h3><span class="badge b">' + req.length + '</span></div>' +
-    (incoming.length ? incoming.slice().sort(function(a, b){ return (b.at || b.createdAt || 0) - (a.at || a.createdAt || 0); }).map(function(r){ return rentalRow(r, false); }).join('') : empty('No rental requests yet.', 'Requests for your listed items will appear here.')) + '</div>' +
-    '<div class="card pad"><h3>Notifications</h3>' +
-    (notifs.length ? notifs.slice().sort(function(a, b){ return (b.at || b.createdAt || 0) - (a.at || a.createdAt || 0); }).map(function(n){
-      return '<div style="border-top:1px solid var(--border);padding:9px 0">' + esc(n.text) + '<div class="muted" style="font-size:12px">' + new Date(n.at || n.createdAt || Date.now()).toLocaleString() + '</div></div>';
-    }).join('') : empty('No notifications yet.', '')) + '</div>' +
-    '</div></div>';
-}
-
-function stat(l, v){
-  return '<div class="card pad"><div class="muted" style="font-size:13px">' + l + '</div><div class="stat">' + v + '</div></div>';
-}
-
-function rentalRow(r, asRenter){
-  var i = itemById(r.itemId);
-  var other = userById(asRenter ? r.ownerId : r.renterId);
-  var acts = '';
-
-  if (!asRenter) {
-    if (r.status === 'Requested') acts = '<button class="btn sm" onclick="setStatus(\'' + r.id + '\',\'Accepted\')">Accept</button><button class="btn sm danger" onclick="setStatus(\'' + r.id + '\',\'Rejected\')">Reject</button>';
-    if (r.status === 'Accepted') acts = '<button class="btn sm" onclick="setStatus(\'' + r.id + '\',\'Active\')">Mark active</button>';
-    if (r.status === 'Active') acts = '<button class="btn sm" onclick="setStatus(\'' + r.id + '\',\'Returned\')">Mark returned</button>';
-    if (r.status === 'Returned') acts = '<button class="btn sm" onclick="setStatus(\'' + r.id + '\',\'Completed\')">Complete</button>';
-  } else {
-    if (r.status === 'Requested') acts = '<button class="btn sm ghost" onclick="setStatus(\'' + r.id + '\',\'Cancelled\')">Cancel</button>';
-    if (r.status === 'Completed' && !r.reviewed) acts = '<button class="btn sm" onclick="openReview(\'' + r.id + '\')">Leave review</button>';
-  }
-  if (other) acts += '<button class="btn sm ghost" onclick="openChat(\'' + other.id + '\',\'' + r.itemId + '\')">Chat</button>';
-
-  return '<div style="border-top:1px solid var(--border);padding:11px 0"><div class="between"><strong>' + esc(i ? i.name : 'Item listing') + '</strong><span class="badge b">' + esc(r.status) + '</span></div>' +
-    '<div class="muted" style="font-size:13px">' + esc(other ? other.name : 'Student') + ' · ' + r.units + ' ' + r.mode + (r.units > 1 ? 's' : '') + ' · ' + new Date(r.start).toLocaleString() + ' → ' + new Date(r.end).toLocaleString() + '</div>' +
-    '<div class="muted" style="font-size:13px">Rent ' + money(r.cost) + ' + deposit ' + money(r.deposit) + ' = <strong>' + money(r.total) + '</strong></div>' +
-    '<div class="row" style="margin-top:8px">' + acts + '</div></div>';
-}
-
-async function setStatus(id, st){
-  var u = me();
-  if (!u) return;
-  var r = state.rentals.find(function(x){ return x.id === id; });
-  if (!r) return;
-
-  // Real-time Firestore conflict validation when owner accepts a request
-  if (st === 'Accepted') {
-    var rStart = new Date(r.start), rEnd = new Date(r.end);
-    try {
-      var snapshot = await db.collection('rentals').where('itemId', '==', r.itemId).get();
-      var allRentals = [];
-      snapshot.forEach(function(doc){ allRentals.push(Object.assign({ id: doc.id }, doc.data())); });
-
-      var conflict = allRentals.find(function(ex){
-        if (ex.id === r.id) return false;
-        if (ex.status !== 'Accepted' && ex.status !== 'Active') return false;
-        var exStart = new Date(ex.start), exEnd = new Date(ex.end);
-        return (rStart < exEnd && rEnd > exStart);
-      });
-
-      if (conflict) {
-        alert('Cannot accept request: Another rental is already booked from ' +
-          new Date(conflict.start).toLocaleString() + ' to ' + new Date(conflict.end).toLocaleString() + '.');
-        return;
-      }
-
-      // Auto-reject any conflicting pending 'Requested' rentals for this item
-      var conflictingPending = allRentals.filter(function(ex){
-        if (ex.id === r.id || ex.status !== 'Requested') return false;
-        var exStart = new Date(ex.start), exEnd = new Date(ex.end);
-        return (rStart < exEnd && rEnd > exStart);
-      });
-
-      for (var cp of conflictingPending) {
-        db.collection('rentals').doc(cp.id).update({
-          status: 'Rejected',
-          updatedAt: Date.now()
-        }).catch(function(){});
-        notifyUser(cp.renterId, 'Your rental request was declined because the time slot was booked by another student.', 'status_rejected', '#/rentals');
-      }
-    } catch (e) {
-      console.warn('Error verifying Firestore bookings before accept:', e);
-    }
-  }
-
-  try {
-    await db.collection('rentals').doc(id).update({
-      status: st,
-      updatedAt: Date.now()
-    });
-
-    var i = itemById(r.itemId);
-    var targetUser = (r.renterId === (u.id || u.uid)) ? r.ownerId : r.renterId;
-    var itemName = i ? i.name : 'an item';
-    await notifyUser(targetUser, 'Rental for "' + itemName + '" is now ' + st + '.', 'status_' + st.toLowerCase(), '#/rentals');
-    toast('Status: ' + st);
-  } catch (err) {
-    console.error('Error updating rental status:', err);
-    toast('Error: ' + err.message);
-  }
-}
-
-/* ---------- Rentals / Listings ---------- */
-function viewRentals(){
-  var u = me();
-  if (!u) return '';
-  var myUid = u.id || u.uid;
-  var list = state.rentals.filter(function(r){ return r.renterId === myUid; }).sort(function(a, b){
-    return (b.at || b.createdAt || 0) - (a.at || a.createdAt || 0);
-  });
-  var tabs = ['All', 'Requested', 'Accepted', 'Active', 'Returned', 'Completed', 'Rejected', 'Cancelled'];
-  var f = rentalTab === 'All' ? list : list.filter(function(r){ return r.status === rentalTab; });
-
-  return '<div class="container section"><h2>My Rentals</h2>' +
-    '<div class="tabs" style="margin-top:12px">' + tabs.map(function(t){
-      return '<div class="tab ' + (rentalTab === t ? 'active' : '') + '" onclick="rentalTab=\'' + t + '\';render()">' + t + '</div>';
-    }).join('') + '</div>' +
-    '<div class="card pad">' + (f.length ? f.map(function(r){ return rentalRow(r, true); }).join('') : empty('No rentals yet.', 'Rentals appear here once you send a rental request.')) + '</div></div>';
-}
-
-function viewListings(){
-  var u = me();
-  if (!u) return '';
-  var myUid = u.id || u.uid;
-  var items = state.items.filter(function(i){ return i.ownerId === myUid; }).sort(function(a, b){
-    return (b.at || b.createdAt || 0) - (a.at || a.createdAt || 0);
-  });
-
-  return '<div class="container section"><div class="between"><h2>My Listings</h2><a class="btn sm" data-nav href="#/add">+ Add Item</a></div>' +
-    (items.length ? '<div class="grid g3" style="margin-top:14px">' + items.map(function(i){
-      var reqs = state.rentals.filter(function(r){ return r.itemId === i.id; });
-      return '<div class="card pad">' + itemCardInner(i) +
-        '<div class="row" style="margin-top:10px"><a class="btn sm ghost" data-nav href="#/edit/' + i.id + '">Edit</a>' +
-        '<button class="btn sm danger" onclick="delItem(\'' + i.id + '\')">Delete</button>' +
-        '<a class="btn sm ghost" data-nav href="#/item/' + i.id + '">View</a></div>' +
-        '<div class="muted" style="font-size:13px;margin-top:8px">' + (reqs.length ? reqs.length + ' rental request' + (reqs.length > 1 ? 's' : '') : 'No rental requests yet.') + '</div></div>';
-    }).join('') + '</div>' : '<div style="margin-top:14px">' + empty('No listings yet.', 'Add an unused item and start earning from it.') + '</div>') + '</div>';
-}
-
-function itemCardInner(i){
-  return (i.image ? '<img class="item-img" src="' + esc(i.image) + '" alt="' + esc(i.name) + '">' : '<div class="item-img" style="display:grid;place-items:center;color:var(--muted)">No image</div>') +
-    '<div class="between" style="margin-top:10px"><strong>' + esc(i.name) + '</strong><span class="badge ' + (i.available ? 'ok' : 'no') + '">' + (i.available ? 'Available' : 'Unavailable') + '</span></div>' +
-    '<div class="muted" style="font-size:13px">'+ esc(i.category) + ' · ' + money(i.perHour) + '/hr · ' + money(i.perDay) + '/day</div>';
-}
-
-async function delItem(id){
-  if (!confirm('Delete this listing?')) return;
-  try {
-    await db.collection('listings').doc(id).delete();
-    toast('Listing deleted');
-  } catch (e) {
-    toast('Error: ' + e.message);
-  }
-}
-
-/* ---------- Student-to-Student Chat ---------- */
-function convoKey(a, b, itemId){
-  return [a, b].sort().join('|') + '#' + (itemId || '');
-}
-
-async function openChat(otherId, itemId){
-  var u = me();
-  if (!u) { go('#/login'); render(); return; }
-  var myUid = u.id || u.uid;
-  if (otherId === myUid) {
-    toast('This is your own listing.');
-    return;
-  }
-
-  var key = convoKey(myUid, otherId, itemId);
-  var c = state.conversations.find(function(x){ return x.key === key; });
-
-  if (!c) {
-    try {
-      var q = await db.collection('conversations').where('members', 'array-contains', myUid).get();
-      q.forEach(function(doc){
-        if (doc.data().key === key) c = Object.assign({ id: doc.id }, doc.data());
-      });
-
-      if (!c) {
-        var docRef = await db.collection('conversations').add({
-          key: key,
-          members: [myUid, otherId],
-          itemId: itemId || '',
-          lastMessage: '',
-          at: Date.now(),
-          updatedAt: Date.now(),
-          createdAt: Date.now()
-        });
-        c = { id: docRef.id, key: key, members: [myUid, otherId], itemId: itemId || '' };
-        state.conversations.unshift(c);
-      }
-      activeConvo = c.id;
-    } catch (e) {
-      toast('Failed to start chat: ' + e.message);
-      return;
-    }
-  } else {
-    activeConvo = c.id;
-  }
-
-  go('#/messages');
-  render();
-}
-
-function viewMessages(){
-  var u = me();
-  if (!u) return '';
-  var myUid = u.id || u.uid;
-  var convos = state.conversations.filter(function(c){
-    return c.members && c.members.indexOf(myUid) > -1;
-  });
-
-  if (!convos.length) {
-    return '<div class="container section"><h2>Messages</h2><div style="margin-top:14px">' +
-      empty('No conversations yet.', 'Open an item and message its owner to start a conversation.') + '</div></div>';
-  }
-
-  if (!activeConvo || !convos.some(function(c){ return c.id === activeConvo; })) {
-    activeConvo = convos[0].id;
-  }
-
-  listenToActiveConvoMessages(activeConvo);
-
-  var cur = convos.find(function(c){ return c.id === activeConvo; }) || convos[0];
-  var otherUid = cur.members.filter(function(x){ return x !== myUid; })[0];
-  var other = userById(otherUid);
-  var curItem = cur.itemId ? itemById(cur.itemId) : null;
-  var cm = state.messages.filter(function(m){ return m.convoId === cur.id; }).sort(function(a, b){
-    return (a.at || a.createdAt || 0) - (b.at || b.createdAt || 0);
-  });
-
-  return '<div class="container section"><h2>Messages</h2><div class="chat" style="margin-top:14px">' +
-    '<div class="card pad">' + convos.map(function(c){
-      var o = userById(c.members.filter(function(x){ return x !== myUid; })[0]);
-      var ci = c.itemId ? itemById(c.itemId) : null;
-      return '<div class="conv ' + (c.id === activeConvo ? 'active' : '') + '" onclick="selectConvo(\'' + c.id + '\')"><strong>' + esc(o ? o.name : 'Student') + '</strong>' +
-        (ci ? '<div class="badge b" style="margin:4px 0">' + esc(ci.name) + '</div>' : '') +
-        '<div class="muted" style="font-size:12.5px">' + esc(c.lastMessage ? c.lastMessage.slice(0, 34) : 'No messages yet.') + '</div></div>';
-    }).join('') + '</div>' +
-    '<div class="card pad"><div class="between"><div><strong>' + esc(other ? other.name : 'Student') + '</strong><div class="muted" style="font-size:12.5px">' + esc(other ? ((other.branch || '') + (other.college ? ' · ' + other.college : '')) : '') + '</div></div>' +
-    (curItem ? '<a class="badge b" data-nav href="#/item/' + curItem.id + '">About: ' + esc(curItem.name) + '</a>' : '') + '</div>' +
-    '<div class="msgs" id="msgs">' + (cm.length ? cm.map(function(m){
-      return '<div class="msg ' + (m.from === myUid ? 'me' : '') + '">' + esc(m.text) + '<span class="when">' + new Date(m.at || m.createdAt || Date.now()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + '</span></div>';
-    }).join('') : '<div class="muted" style="margin:auto;text-align:center">No messages yet.<br>Send a message to start this student conversation.</div>') + '</div>' +
-    '<form id="msgForm" class="row" data-c="' + cur.id + '" style="margin-top:10px;flex-wrap:nowrap"><input name="text" placeholder="Write a message…" autocomplete="off"><button class="btn" type="submit">Send</button></form>' +
-    '</div></div></div>';
-}
-
-function selectConvo(cid){
-  activeConvo = cid;
-  render();
-}
-
-var activeMessagesUnsub = null;
-var currentListeningConvoId = null;
-
-function listenToActiveConvoMessages(convoId){
-  if (currentListeningConvoId === convoId) return;
-  if (activeMessagesUnsub) {
-    activeMessagesUnsub();
-    activeMessagesUnsub = null;
-  }
-  currentListeningConvoId = convoId;
-  activeMessagesUnsub = db.collection('messages')
-    .where('convoId', '==', convoId)
-    .onSnapshot(function(snapshot){
-      state.messages = [];
-      snapshot.forEach(function(doc){
-        state.messages.push(Object.assign({ id: doc.id }, doc.data()));
-      });
-      state.messages.sort(function(a, b){
-        return (a.at || a.createdAt || 0) - (b.at || b.createdAt || 0);
-      });
-      if ((location.hash || '').indexOf('#/messages') === 0) {
-        var box = document.getElementById('msgs');
-        if (box) {
-          var u = me();
-          var myUid = u ? (u.id || u.uid) : '';
-          box.innerHTML = state.messages.length ? state.messages.map(function(m){
-            return '<div class="msg ' + (m.from === myUid ? 'me' : '') + '">' + esc(m.text) + '<span class="when">' + new Date(m.at || m.createdAt || Date.now()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + '</span></div>';
-          }).join('') : '<div class="muted" style="margin:auto;text-align:center">No messages yet.<br>Send a message to start this student conversation.</div>';
-          box.scrollTop = box.scrollHeight;
-        }
-      }
-    }, function(err){
-      console.warn('Error listening to messages:', err);
-    });
-}
-
-async function doSend(f){
-  var u = me(), text = val(f, 'text');
-  if (!text) return;
-  var cid = f.dataset.c;
-  var myUid = u.id || u.uid;
-  var input = f.elements['text'];
-  if (input) input.value = '';
-
-  try {
-    await db.collection('messages').add({
-      convoId: cid,
-      from: myUid,
-      text: text,
-      at: Date.now(),
-      createdAt: Date.now()
-    });
-
-    await db.collection('conversations').doc(cid).update({
-      lastMessage: text,
-      updatedAt: Date.now()
-    });
-
-    var c = state.conversations.find(function(x){ return x.id === cid; });
-    if (c) {
-      var otherId = c.members.filter(function(x){ return x !== myUid; })[0];
-      if (otherId) {
-        notifyUser(otherId, 'New message from ' + (u.name || 'Student') + ': "' + (text.slice(0, 30)) + '"', 'chat', '#/messages');
-      }
-    }
-  } catch (err) {
-    console.error('Failed to send message:', err);
-    toast('Error sending message: ' + err.message);
-  }
-}
-
-/* ---------- Reviews ---------- */
-function openReview(rid){
-  var r = state.rentals.find(function(x){ return x.id === rid; });
-  if (!r) return;
-  var w = document.createElement('div');
-  w.className = 'modal-bg';
-  w.id = 'modal';
-  w.innerHTML = '<div class="card pad modal"><h3>Leave a review</h3><form id="reviewForm" data-r="' + rid + '" novalidate>' +
-    '<label>Star rating</label><div class="stars" id="starPick" data-v="0">☆☆☆☆☆</div><div class="err" data-e="rating"></div>' +
-    '<label>Your review</label><textarea name="text" rows="4"></textarea><div class="err" data-e="text"></div>' +
-    '<div class="row" style="margin-top:14px"><button class="btn" type="submit">Submit review</button><button type="button" class="btn ghost" onclick="document.getElementById(\'modal\').remove()">Cancel</button></div></form></div>';
-  document.body.appendChild(w);
-
-  var sp = document.getElementById('starPick');
-  sp.onclick = function(e){
-    var rect = sp.getBoundingClientRect();
-    var v = Math.min(5, Math.max(1, Math.ceil((e.clientX - rect.left) / (rect.width / 5))));
-    sp.dataset.v = v;
-    sp.textContent = '★'.repeat(v) + '☆'.repeat(5 - v);
+  var f=document.getElementById('imgFile'),url=document.getElementById('imgUrl');
+  if(f)f.onchange=function(){
+    var file=f.files[0];if(!file)return;
+    if(!/^image\//.test(file.type)){toast('Please choose an image file.','err');f.value='';return}
+    toast('Uploading image…');
+    uploadImage(file,'items').then(function(link){url.value=link;toast('Image uploaded','ok')})
+      .catch(function(e){f.value='';apiError(fbError(e))});
   };
 }
-
-async function doReview(f){
-  var u = me(), rid = f.dataset.r;
-  var rating = Number(document.getElementById('starPick').dataset.v);
-  var text = val(f, 'text'), errs = {};
-  if (!rating) errs.rating = 'Select a star rating.';
-  if (!text) errs.text = 'Please write a short review.';
-  if (!setErrs(f, errs)) return;
-
-  var r = state.rentals.find(function(x){ return x.id === rid; });
-  if (!r) return;
-
-  var btn = f.querySelector('button[type="submit"]') || f.querySelector('button');
-  if (btn) { btn.disabled = true; btn.textContent = 'Submitting...'; }
-
-  try {
-    await db.collection('reviews').add({
-      rentalId: rid,
-      itemId: r.itemId,
-      userId: u.id || u.uid,
-      ownerId: r.ownerId,
-      rating: rating,
-      text: text,
-      at: Date.now(),
-      createdAt: Date.now()
-    });
-
-    await db.collection('rentals').doc(rid).update({ reviewed: true });
-    await notifyUser(r.ownerId, (u.name || 'Student') + ' left a ' + rating + '-star review.', 'review', '#/profile');
-
-    var modal = document.getElementById('modal');
-    if (modal) modal.remove();
-    toast('Review submitted');
-    render();
-  } catch (err) {
-    toast('Error: ' + err.message);
-    if (btn) { btn.disabled = false; btn.textContent = 'Submit review'; }
-  }
+function doItem(f){
+  var u=me(),errs={},d={};
+  ['name','category','description','image','condition','perHour','perDay','deposit','location'].forEach(function(n){d[n]=val(f,n)});
+  ['name','category','description','condition','location'].forEach(function(n){if(!d[n])errs[n]='This field is required.'});
+  ['perHour','perDay','deposit'].forEach(function(n){if(d[n]===''||isNaN(Number(d[n]))||Number(d[n])<0)errs[n]='Enter a valid amount.'});
+  if(!setErrs(f,errs))return;
+  var id=f.dataset.id;
+  var obj={name:d.name,category:d.category,description:d.description,image:d.image,condition:d.condition,
+    perHour:Number(d.perHour),perDay:Number(d.perDay),deposit:Number(d.deposit),location:d.location,available:val(f,'available')==='1'};
+  api(id?'/items/'+id:'/items',{method:id?'PUT':'POST',body:obj})
+    .then(function(){toast(id?'Item updated':'Item published','ok');go('#/listings');return refresh()})
+    .catch(function(e){if(e.errors)setErrs(f,e.errors);else apiError(e)});
 }
 
-/* ---------- Profile ---------- */
-function updateProfileYears(){
-  var courseEl = document.getElementById('profCourse');
-  var branchEl = document.getElementById('profBranch');
-  var yearEl = document.getElementById('profYearSelect');
-  var durEl = document.getElementById('profDurationText');
-  if (!yearEl) return;
-
-  var cVal = courseEl ? courseEl.value : 'B.Tech';
-  var bVal = branchEl ? branchEl.value : '';
-  var data = getCourseYears(cVal, bVal);
-  if (durEl) durEl.textContent = 'Course Duration: ' + data.duration;
-
-  var previousYear = yearEl.value;
-  yearEl.innerHTML = '';
-
-  var defaultOpt = document.createElement('option');
-  defaultOpt.value = '';
-  defaultOpt.textContent = 'Select year';
-  yearEl.appendChild(defaultOpt);
-
-  var isPreviousYearValid = false;
-  data.years.forEach(function(y){
-    var opt = document.createElement('option');
-    opt.value = y;
-    opt.textContent = y;
-    if (previousYear && (previousYear === y || previousYear === y.replace(/[^0-9]/g, ''))) {
-      opt.selected = true;
-      isPreviousYearValid = true;
-    }
-    yearEl.appendChild(opt);
-  });
-
-  if (!isPreviousYearValid) {
-    yearEl.value = '';
-  }
+/* ---------- item details ---------- */
+function viewItem(p){
+  var i=itemById(p[1]);if(!i)return '<div class="container section">'+empty('Item not found','This listing no longer exists.')+'</div>';
+  var o=userById(i.ownerId),u=me();
+  var revs=load(K.reviews).filter(function(r){return r.itemId===i.id});
+  var avg=revs.length?(revs.reduce(function(s,r){return s+r.rating},0)/revs.length):0;
+  return '<div class="container section"><div class="grid g2">'+
+  '<div class="card pad">'+(i.image?'<img src="'+esc(i.image)+'" alt="'+esc(i.name)+'" style="width:100%;border-radius:10px">':'<div class="item-img" style="height:280px;display:grid;place-items:center;color:var(--muted)">No image</div>')+'</div>'+
+  '<div class="card pad"><div class="between"><h2 style="margin:0">'+esc(i.name)+'</h2><span class="badge '+(i.available?'ok':'no')+'">'+(i.available?'Available':'Unavailable')+'</span></div>'+
+  '<div class="row" style="margin:8px 0"><span class="badge b">'+esc(i.category)+'</span><span class="badge">Condition: '+esc(i.condition)+'</span>'+(revs.length?'<span class="badge">★ '+avg.toFixed(1)+' ('+revs.length+')</span>':'')+'</div>'+
+  '<p class="muted">'+esc(i.description)+'</p>'+
+  '<table><tr><th>Price per hour</th><td>'+money(i.perHour)+'</td></tr><tr><th>Price per day</th><td>'+money(i.perDay)+'</td></tr><tr><th>Security deposit</th><td>'+money(i.deposit)+'</td></tr><tr><th>Pickup location</th><td>'+esc(i.location)+'</td></tr>'+
+  (o?'<tr><th>Owner</th><td>'+esc(o.name)+' · '+esc(o.branch)+', Year '+esc(o.year)+'<br><span class="muted">'+esc(o.college)+'</span></td></tr>':'')+
+  (i.fingerprint?'<tr><th>Item identifier</th><td><span class="chip">'+esc(i.fingerprint)+'</span><div class="muted" style="font-size:12px;margin-top:4px">Used for secure handover and return checks.</div></td></tr>':'')+'</table>'+
+  '<div class="row" style="margin-top:14px">'+
+  (u&&o&&u.id===o.id?'<a class="btn ghost" data-nav href="#/edit/'+i.id+'">Edit item</a><a class="btn ghost" data-nav href="#/dashboard">View requests</a><span class="muted" style="font-size:13px">You listed this item, so you cannot rent it.</span>'
+    :'<a class="btn" data-nav href="#/rent/'+i.id+'"'+(i.available?'':' style="opacity:.5;pointer-events:none"')+'>Request to Rent</a>'+
+     (o?'<button class="btn ghost" onclick="openChat(\''+o.id+'\',\''+i.id+'\')">Chat with Owner</button>':''))+
+  '</div></div></div>'+
+  '<div class="card pad" style="margin-top:16px"><h3>Reviews</h3>'+
+  (revs.length?revs.map(function(r){var ru=userById(r.userId);return '<div style="border-top:1px solid var(--border);padding:10px 0"><strong>'+esc(ru?ru.name:'Student')+'</strong> <span class="stars">'+'★'.repeat(r.rating)+'</span><div class="muted">'+esc(r.text)+'</div></div>'}).join('')
+   :empty('No reviews yet.','Reviews appear after completed rentals.'))+'</div></div>';
 }
 
+/* ---------- rent ---------- */
+function viewRent(p){
+  var i=itemById(p[1]),u=me();
+  if(!i)return '<div class="container section">'+empty('Item not found','')+'</div>';
+  if(i.ownerId===u.id)return '<div class="container section">'+empty('This is your own item.','You cannot rent an item you listed.')+'</div>';
+  return '<div class="container section"><div class="card pad" style="max-width:560px;margin:0 auto">'+
+  '<h2>Rent: '+esc(i.name)+'</h2><p class="muted">'+money(i.perHour)+'/hour · '+money(i.perDay)+'/day · Deposit '+money(i.deposit)+'</p>'+
+  '<form id="rentForm" data-id="'+i.id+'" novalidate>'+
+  '<label>Rental type</label><select name="mode" id="rmode"><option value="hour">Hourly</option><option value="day">Daily</option></select>'+
+  '<div class="grid g2"><div><label>Start date &amp; time</label><input type="datetime-local" name="start" id="rstart"><div class="err" data-e="start"></div></div>'+
+  '<div><label>End date &amp; time</label><input type="datetime-local" name="end" id="rend"><div class="err" data-e="end"></div></div></div>'+
+  '<div class="card pad" id="calc" style="margin-top:14px;background:var(--surface-2)"></div>'+
+  '<div class="err" data-e="form"></div>'+
+  '<button class="btn" style="margin-top:14px;width:100%">Send Rental Request</button></form></div></div>';
+}
+function calcRental(i,mode,s,e){
+  var ms=new Date(e)-new Date(s);
+  if(!s||!e||isNaN(ms)||ms<=0)return null;
+  var hours=ms/3600000,units,cost;
+  if(mode==='hour'){units=Math.max(1,Math.ceil(hours));cost=units*i.perHour}
+  else{units=Math.max(1,Math.ceil(hours/24));cost=units*i.perDay}
+  return {units:units,hours:hours,cost:cost,deposit:i.deposit,total:cost+i.deposit,mode:mode};
+}
+function bindRent(){
+  var f=document.getElementById('rentForm');if(!f)return;
+  var i=itemById(f.dataset.id);
+  function upd(){
+    var r=calcRental(i,val(f,'mode'),val(f,'start'),val(f,'end')),box=document.getElementById('calc');
+    box.innerHTML=r?'<div class="between"><span>Duration</span><strong>'+r.units+' '+(r.mode==='hour'?'hour':'day')+(r.units>1?'s':'')+'</strong></div>'+
+      '<div class="between"><span>Rental cost</span><strong>'+money(r.cost)+'</strong></div>'+
+      '<div class="between"><span>Security deposit</span><strong>'+money(r.deposit)+'</strong></div>'+
+      '<div class="between" style="border-top:1px solid var(--border);margin-top:8px;padding-top:8px"><span>Total payable</span><strong>'+money(r.total)+'</strong></div>'
+      :'<div class="muted">Select a valid start and end time to see the cost.</div>';
+  }
+  ['rmode','rstart','rend'].forEach(function(id){var el=document.getElementById(id);if(el)el.oninput=el.onchange=upd});
+  upd();
+}
+function doRent(f){
+  var u=me(),i=itemById(f.dataset.id),r=calcRental(i,val(f,'mode'),val(f,'start'),val(f,'end')),errs={};
+  if(!val(f,'start'))errs.start='Select a start time.';
+  if(!val(f,'end'))errs.end='Select an end time.';
+  if(!errs.start&&!errs.end&&!r)errs.form='End time must be after the start time.';
+  if(!setErrs(f,errs))return;
+  api('/rentals',{method:'POST',body:{itemId:i.id,mode:val(f,'mode'),start:val(f,'start'),end:val(f,'end')}})
+    .then(function(){toast('Rental request sent','ok');go('#/rentals');return refresh()})
+    .catch(function(e){if(e.errors)setErrs(f,e.errors);else{setErrs(f,{form:e.message});apiError(e)}});
+}
+
+/* ---------- dashboard ---------- */
+function viewDashboard(){
+  var u=me(),items=load(K.items).filter(function(i){return i.ownerId===u.id});
+  var rentals=load(K.rentals);
+  var mine=rentals.filter(function(r){return r.renterId===u.id});
+  var incoming=rentals.filter(function(r){return r.ownerId===u.id});
+  var earnings=incoming.filter(function(r){return r.status==='Completed'}).reduce(function(s,r){return s+r.cost},0);
+  var held=incoming.filter(function(r){return r.status==='Accepted'||r.status==='Active'}).reduce(function(s,r){return s+r.deposit},0);
+  var notifs=load(K.notifs).filter(function(n){return n.userId===u.id});
+  var req=incoming.filter(function(r){return r.status==='Requested'});
+  return '<div class="container section"><h2>Hello, '+esc(u.name.split(' ')[0])+'</h2><p class="muted">'+esc(u.branch)+' · Year '+esc(u.year)+' · '+esc(u.college)+'</p>'+
+  '<div class="grid g4" style="margin-top:16px">'+
+  stat('Active Rentals',mine.concat(incoming).filter(function(r){return r.status==='Active'}).length)+
+  stat('Pending Requests',incoming.filter(function(r){return r.status==='Requested'}).length+mine.filter(function(r){return r.status==='Requested'}).length)+
+  stat('Completed Rentals',mine.concat(incoming).filter(function(r){return r.status==='Completed'}).length)+
+  stat('My Listed Items',items.length)+'</div>'+
+  '<div class="grid g4" style="margin-top:16px">'+
+  stat('My Rentals',mine.length)+stat('Incoming Requests',incoming.length)+stat('Earnings',money(earnings))+stat('Deposits Held',money(held))+'</div>'+
+  '<div class="grid g2" style="margin-top:16px">'+
+  '<div class="card pad"><div class="between"><h3>Incoming Rental Requests</h3><span class="badge b">'+req.length+'</span></div>'+
+  (incoming.length?incoming.sort(function(a,b){return b.at-a.at}).map(rentalRow).join(''):empty('No rental requests yet.','Requests for your listed items will appear here.'))+'</div>'+
+  '<div class="card pad"><div class="between"><h3>Latest notifications</h3><a class="muted" data-nav href="#/notifications">View all →</a></div>'+
+  (notifs.length?notifs.slice(0,8).map(function(n){return '<div style="border-top:1px solid var(--border);padding:9px 0">'+esc(n.text)+'<div class="muted" style="font-size:12px">'+new Date(n.at).toLocaleString()+'</div></div>'}).join(''):empty('No notifications yet.',''))+'</div>'+
+  '</div></div>';
+}
+function stat(l,v){return '<div class="card pad"><div class="muted" style="font-size:13px">'+l+'</div><div class="stat">'+v+'</div></div>'}
+function rentalRow(r,asRenter){
+  var i=itemById(r.itemId),other=userById(asRenter?r.ownerId:r.renterId);
+  var acts='';
+  if(!asRenter){
+    if(r.status==='Requested')acts='<button class="btn sm" onclick="setStatus(\''+r.id+'\',\'Accepted\')">Accept</button><button class="btn sm danger" onclick="setStatus(\''+r.id+'\',\'Rejected\')">Reject</button>';
+    if(r.status==='Accepted')acts='<button class="btn sm" onclick="setStatus(\''+r.id+'\',\'Active\')">Mark active</button>';
+    if(r.status==='Active')acts='<button class="btn sm" onclick="setStatus(\''+r.id+'\',\'Returned\')">Mark returned</button>';
+    if(r.status==='Returned')acts='<button class="btn sm" onclick="setStatus(\''+r.id+'\',\'Completed\')">Complete</button>';
+  }else{
+    if(r.status==='Requested')acts='<button class="btn sm ghost" onclick="setStatus(\''+r.id+'\',\'Cancelled\')">Cancel</button>';
+    if(r.status==='Completed'&&!r.reviewed)acts='<button class="btn sm" onclick="openReview(\''+r.id+'\')">Leave review</button>';
+  }
+  if(other)acts+='<button class="btn sm ghost" onclick="openChat(\''+other.id+'\',\''+r.itemId+'\')">Chat</button>';
+  return '<div style="border-top:1px solid var(--border);padding:11px 0"><div class="between"><strong>'+esc(i?i.name:'Item removed')+'</strong><span class="badge b">'+esc(r.status)+'</span></div>'+
+  '<div class="muted" style="font-size:13px">'+esc(other?other.name+(other.branch?' ('+other.branch+', Year '+other.year+')':''):'Student')+' · '+r.units+' '+r.mode+(r.units>1?'s':'')+' · '+new Date(r.start).toLocaleString()+' → '+new Date(r.end).toLocaleString()+'</div>'+
+  '<div class="muted" style="font-size:13px">Rent '+money(r.cost)+' + deposit '+money(r.deposit)+' = <strong>'+money(r.total)+'</strong></div>'+
+  '<div class="row" style="margin-top:6px">'+(r.fingerprint?'<span class="chip">'+esc(r.fingerprint)+'</span>':'')+
+  '<span class="badge">Handover: '+esc(r.handoverStatus||'Pending')+'</span><span class="badge">Return: '+esc(r.returnStatus||'Pending')+'</span></div>'+
+  '<div class="row" style="margin-top:8px">'+acts+'</div></div>';
+}
+function setStatus(id,st){
+  api('/rentals/'+id+'/status',{method:'PATCH',body:{status:st}})
+    .then(function(){toast('Rental status updated to '+st,'ok');return refresh()})
+    .catch(apiError);
+}
+
+/* ---------- notifications ---------- */
+function viewNotifications(){
+  var u=me(),list=load(K.notifs).filter(function(n){return n.userId===u.id}).slice().sort(function(a,b){return b.at-a.at});
+  var un=list.filter(function(n){return !n.read}).length;
+  var ic={rental_requested:'📥',rental_accepted:'✅',rental_rejected:'⛔',rental_active:'🚀',rental_returned:'📦',rental_completed:'🏁',rental_cancelled:'✖️',message:'💬',review:'⭐'};
+  return '<div class="container section"><div class="between"><h2>Notifications</h2>'+
+  (un?'<button class="btn sm ghost" onclick="markAllRead()">Mark all as read</button>':'')+'</div>'+
+  '<p class="muted">Updates about your rentals, requests, messages and reviews.</p>'+
+  '<div class="card pad" style="margin-top:14px">'+
+  (list.length?list.map(function(n){
+    return '<div class="notif"><span class="dot '+(n.read?'seen':'')+'"></span><div style="flex:1">'+
+      '<div>'+(ic[n.type]||'🔔')+' '+esc(n.text)+'</div>'+
+      '<div class="muted" style="font-size:12px;margin-top:2px">'+new Date(n.at).toLocaleString()+'</div></div>'+
+      (n.link?'<a class="btn sm ghost" data-nav href="'+esc(n.link)+'" onclick="markRead(\''+n.id+'\')">Open</a>':'')+'</div>';
+  }).join(''):empty('No notifications yet.','You will be notified here when someone requests your item, replies, or completes a rental.'))+
+  '</div></div>';
+}
+function markRead(id){api('/notifications/'+id+'/read',{method:'PUT'}).then(function(){var n=DB.notifs.find(function(x){return x.id===id});if(n)n.read=true}).catch(function(){})}
+function markAllRead(){api('/notifications/read',{method:'POST'}).then(function(){toast('All notifications marked read','ok');return refresh()}).catch(apiError)}
+
+/* ---------- rentals / listings ---------- */
+var rentalTab='All';
+function viewRentals(){
+  var u=me(),list=load(K.rentals).filter(function(r){return r.renterId===u.id}).sort(function(a,b){return b.at-a.at});
+  var tabs=['All','Requested','Accepted','Active','Returned','Completed','Rejected','Cancelled'];
+  var f=rentalTab==='All'?list:list.filter(function(r){return r.status===rentalTab});
+  return '<div class="container section"><h2>My Rentals</h2>'+
+  '<div class="tabs" style="margin-top:12px">'+tabs.map(function(t){return '<div class="tab '+(rentalTab===t?'active':'')+'" onclick="rentalTab=\''+t+'\';render()">'+t+'</div>'}).join('')+'</div>'+
+  '<div class="card pad">'+(f.length?f.map(function(r){return rentalRow(r,true)}).join(''):empty('No rentals yet.','Rentals appear here once you send a rental request.'))+'</div></div>';
+}
+function viewListings(){
+  var u=me(),items=load(K.items).filter(function(i){return i.ownerId===u.id}).sort(function(a,b){return b.at-a.at});
+  var rentals=load(K.rentals);
+  return '<div class="container section"><div class="between"><h2>My Listings</h2><a class="btn sm" data-nav href="#/add">+ Add Item</a></div>'+
+  (items.length?'<div class="grid g3" style="margin-top:14px">'+items.map(function(i){
+    var reqs=rentals.filter(function(r){return r.itemId===i.id});
+    return '<div class="card pad">'+itemCardInner(i)+
+    '<div class="row" style="margin-top:10px"><a class="btn sm ghost" data-nav href="#/edit/'+i.id+'">Edit</a>'+
+    '<button class="btn sm danger" onclick="delItem(\''+i.id+'\')">Delete</button>'+
+    '<a class="btn sm ghost" data-nav href="#/item/'+i.id+'">View</a></div>'+
+    '<div class="muted" style="font-size:13px;margin-top:8px">'+(reqs.length?reqs.length+' rental request'+(reqs.length>1?'s':''):'No rental requests yet.')+'</div></div>';
+  }).join('')+'</div>':'<div style="margin-top:14px">'+empty('No listings yet.','Add an unused item and start earning from it.')+'</div>')+'</div>';
+}
+function itemCardInner(i){
+  return (i.image?'<img class="item-img" src="'+esc(i.image)+'" alt="'+esc(i.name)+'">':'<div class="item-img" style="display:grid;place-items:center;color:var(--muted)">No image</div>')+
+  '<div class="between" style="margin-top:10px"><strong>'+esc(i.name)+'</strong><span class="badge '+(i.available?'ok':'no')+'">'+(i.available?'Available':'Unavailable')+'</span></div>'+
+  '<div class="muted" style="font-size:13px">'+esc(i.category)+' · '+money(i.perHour)+'/hr · '+money(i.perDay)+'/day</div>';
+}
+function delItem(id){
+  if(!confirm('Delete this listing?'))return;
+  api('/items/'+id,{method:'DELETE'}).then(function(){toast('Listing deleted','ok');return refresh()}).catch(apiError);
+}
+
+/* ---------- messages ---------- */
+var activeConvo=null;
+function convoKey(a,b,itemId){return [a,b].sort().join('|')+'#'+(itemId||'')}
+function openChat(otherId,itemId){
+  var u=me();if(!u){go('#/login');render();return}
+  if(otherId===u.id){toast('This is your own listing.');return}
+  api('/conversations',{method:'POST',body:{otherId:otherId,itemId:itemId||''}})
+    .then(function(r){activeConvo=r.conversation.id;go('#/messages');return refresh()})
+    .catch(apiError);
+}
+function viewMessages(){
+  var u=me(),convos=load(K.convos).filter(function(c){return c.members.indexOf(u.id)>-1});
+  var msgs=load(K.msgs);
+  if(!convos.length)return '<div class="container section"><h2>Messages</h2><div style="margin-top:14px">'+empty('No conversations yet.','Open an item and message its owner to start a conversation.')+'</div></div>';
+  if(!activeConvo||!convos.some(function(c){return c.id===activeConvo}))activeConvo=convos[0].id;
+  var cur=convos.find(function(c){return c.id===activeConvo});
+  var cm=msgs.filter(function(m){return m.convoId===cur.id}).sort(function(a,b){return a.at-b.at});
+  var other=userById(cur.members.filter(function(x){return x!==u.id})[0]);
+  var curItem=cur.itemId?itemById(cur.itemId):null;
+  return '<div class="container section"><h2>Messages</h2><div class="chat" style="margin-top:14px">'+
+  '<div class="card pad">'+convos.map(function(c){
+    var o=userById(c.members.filter(function(x){return x!==u.id})[0]);
+    var last=msgs.filter(function(m){return m.convoId===c.id}).sort(function(a,b){return b.at-a.at})[0];
+    var unread=msgs.filter(function(m){return m.convoId===c.id&&m.to===u.id&&!m.read}).length;
+    var ci=c.itemId?itemById(c.itemId):null;
+    return '<div class="conv '+(c.id===activeConvo?'active':'')+'" onclick="activeConvo=\''+c.id+'\';render()"><strong>'+esc(o?o.name:'Student')+'</strong>'+(ci?'<div class="badge b" style="margin:4px 0">'+esc(ci.name)+'</div>':'')+'<div class="muted" style="font-size:12.5px">'+esc(last?last.text.slice(0,34):'No messages yet.')+'</div>'+
+      (unread?'<span class="unread" style="margin:6px 0 0">'+unread+'</span>':'')+'</div>';
+  }).join('')+'</div>'+
+  '<div class="card pad"><div class="between"><div><strong>'+esc(other?other.name:'Student')+'</strong><div class="muted" style="font-size:12.5px">'+esc(other?(other.branch+' · '+other.college):'')+'</div></div>'+
+  (curItem?'<a class="badge b" data-nav href="#/item/'+curItem.id+'">About: '+esc(curItem.name)+'</a>':'')+'</div>'+
+  '<div class="msgs" id="msgs">'+(cm.length?cm.map(function(m){return '<div class="msg '+(m.from===u.id?'me':'')+'">'+esc(m.text)+'<span class="when">'+new Date(m.at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})+' · '+new Date(m.at).toLocaleDateString()+(m.from===u.id?'<span class="tick">'+(m.read?'✓✓ Read':'✓ Sent')+'</span>':'')+'</span></div>'}).join(''):'<div class="muted" style="margin:auto;text-align:center">No messages yet.<br>Send the first message to start this conversation.</div>')+'</div>'+
+  '<form id="msgForm" class="row" data-c="'+cur.id+'" style="margin-top:10px;flex-wrap:nowrap"><input name="text" placeholder="Write a message…" autocomplete="off"><button class="btn">Send</button></form>'+
+  '</div></div></div>';
+}
+function doSend(f){
+  var text=val(f,'text');if(!text)return;
+  var input=f.elements['text'];input.value='';
+  api('/messages',{method:'POST',body:{convoId:f.dataset.c,text:text}})
+    .then(function(){
+      afterRender=function(){var m=document.getElementById('msgs');if(m)m.scrollTop=m.scrollHeight};
+      return refresh();
+    })
+    .catch(function(e){input.value=text;apiError(e)});
+}
+
+/* ---------- reviews ---------- */
+function openReview(rid){
+  var r=load(K.rentals).find(function(x){return x.id===rid});if(!r)return;
+  var w=document.createElement('div');w.className='modal-bg';w.id='modal';
+  w.innerHTML='<div class="card pad modal"><h3>Leave a review</h3><form id="reviewForm" data-r="'+rid+'" novalidate>'+
+  '<label>Star rating</label><div class="stars" id="starPick" data-v="0">☆☆☆☆☆</div><div class="err" data-e="rating"></div>'+
+  '<label>Your review</label><textarea name="text" rows="4"></textarea><div class="err" data-e="text"></div>'+
+  '<div class="row" style="margin-top:14px"><button class="btn">Submit review</button><button type="button" class="btn ghost" onclick="document.getElementById(\'modal\').remove()">Cancel</button></div></form></div>';
+  document.body.appendChild(w);
+  var sp=document.getElementById('starPick');
+  sp.onclick=function(e){var rect=sp.getBoundingClientRect();var v=Math.min(5,Math.max(1,Math.ceil((e.clientX-rect.left)/(rect.width/5))));sp.dataset.v=v;sp.textContent='★'.repeat(v)+'☆'.repeat(5-v)};
+}
+function doReview(f){
+  var u=me(),rid=f.dataset.r,rating=Number(document.getElementById('starPick').dataset.v),text=val(f,'text'),errs={};
+  if(!rating)errs.rating='Select a star rating.';
+  if(!text)errs.text='Please write a short review.';
+  if(!setErrs(f,errs))return;
+  api('/reviews',{method:'POST',body:{rentalId:rid,rating:rating,text:text}})
+    .then(function(){var m=document.getElementById('modal');if(m)m.remove();toast('Review submitted','ok');return refresh()})
+    .catch(function(e){if(e.errors)setErrs(f,e.errors);else apiError(e)});
+}
+
+/* ---------- profile ---------- */
 function viewProfile(){
-  var u = me();
-  if (!u) return '';
-  var myUid = u.id || u.uid;
-  var items = state.items.filter(function(i){ return i.ownerId === myUid; });
-  var revs = state.reviews.filter(function(r){ return r.ownerId === myUid; });
-  var avg = revs.length ? (revs.reduce(function(s, r){ return s + r.rating; }, 0) / revs.length).toFixed(1) : null;
-  var currentCourse = u.course || 'B.Tech';
-  var courseInfo = getCourseYears(currentCourse, u.branch);
-
-  return '<div class="container section"><h2>My Profile</h2><div class="grid g2" style="margin-top:14px">' +
-    '<div class="card pad"><form id="profileForm" novalidate>' +
-    '<label>Full Name</label><input name="name" value="' + esc(u.name || '') + '"><div class="err" data-e="name"></div>' +
-    '<label>College Name</label><input name="college" value="' + esc(u.college || '') + '"><div class="err" data-e="college"></div>' +
-    '<label>Course</label><select name="course" id="profCourse" onchange="updateProfileYears()">' +
-    '<option value="B.Tech" selected>B.Tech</option>' +
-    '</select>' +
-    '<label>Branch</label><input name="branch" id="profBranch" oninput="updateProfileYears()" value="' + esc(u.branch || '') + '"><div class="err" data-e="branch"></div>' +
-    '<div class="between"><label style="margin:14px 0 6px">Current Year of Study</label><span class="muted" style="font-size:12px;margin-top:14px" id="profDurationText">Course Duration: 4 Years</span></div>' +
-    '<select name="year" id="profYearSelect"><option value="">Select year</option>' + ['1st Year', '2nd Year', '3rd Year', '4th Year'].map(function(y){
-      var isSel = (String(u.year) === y || String(u.year) === y.replace(/[^0-9]/g, ''));
-      return '<option value="' + y + '"' + (isSel ? ' selected' : '') + '>' + y + '</option>';
-    }).join('') + '</select><div class="err" data-e="year"></div>' +
-    '<label>College Email</label><input name="email" value="' + esc(u.email || '') + '" readonly style="opacity:.7;cursor:not-allowed"><div class="err" data-e="email"></div>' +
-    '<label>New Password (optional)</label><input name="password" type="password" placeholder="Leave blank to keep unchanged"><div class="err" data-e="password"></div>' +
-    '<button class="btn" style="margin-top:16px;width:100%" type="submit">Save profile</button></form></div>' +
-    '<div class="card pad"><h3>Activity</h3><table><tr><th>Listed items</th><td>' + items.length + '</td></tr>' +
-    '<tr><th>Owner rating</th><td>' + (avg ? '★ ' + avg + ' (' + revs.length + ' reviews)' : 'No reviews yet.') + '</td></tr></table>' +
-    '<h3 style="margin-top:18px">Reviews received</h3>' +
-    (revs.length ? revs.map(function(r){
-      return '<div style="border-top:1px solid var(--border);padding:9px 0"><span class="stars">' + '★'.repeat(r.rating) + '</span><div class="muted">' + esc(r.text) + '</div></div>';
-    }).join('') : empty('No reviews yet.', '')) + '</div></div></div>';
+  var u=me(),items=load(K.items).filter(function(i){return i.ownerId===u.id});
+  var revs=load(K.reviews).filter(function(r){return r.ownerId===u.id});
+  var avg=revs.length?(revs.reduce(function(s,r){return s+r.rating},0)/revs.length).toFixed(1):null;
+  return '<div class="container section"><h2>My Profile</h2><div class="grid g2" style="margin-top:14px">'+
+  '<div class="card pad"><form id="profileForm" novalidate>'+
+  '<label>Full Name</label><input name="name" value="'+esc(u.name)+'"><div class="err" data-e="name"></div>'+
+  '<label>College Name</label><input name="college" value="'+esc(u.college)+'"><div class="err" data-e="college"></div>'+
+  '<label>Branch</label><input name="branch" value="'+esc(u.branch)+'"><div class="err" data-e="branch"></div>'+
+  '<label>Year of Study</label><select name="year">'+[1,2,3,4,5].map(function(y){return '<option '+(String(u.year)===String(y)?'selected':'')+'>'+y+'</option>'}).join('')+'</select>'+
+  '<label>College Email</label><input name="email" value="'+esc(u.email)+'"><div class="err" data-e="email"></div>'+
+  '<label>New Password (optional)</label><input name="password" type="password"><div class="err" data-e="password"></div>'+
+  '<button class="btn" style="margin-top:16px;width:100%">Save profile</button></form></div>'+
+  '<div class="card pad"><h3>Activity</h3><table><tr><th>Listed items</th><td>'+items.length+'</td></tr>'+
+  '<tr><th>Owner rating</th><td>'+(avg?'★ '+avg+' ('+revs.length+' reviews)':'No reviews yet.')+'</td></tr></table>'+
+  '<h3 style="margin-top:18px">Reviews received</h3>'+
+  (revs.length?revs.map(function(r){return '<div style="border-top:1px solid var(--border);padding:9px 0"><span class="stars">'+'★'.repeat(r.rating)+'</span><div class="muted">'+esc(r.text)+'</div></div>'}).join(''):empty('No reviews yet.',''))+
+  '</div></div></div>';
+}
+function doProfile(f){
+  var errs={},d={};
+  ['name','college','branch','email','password'].forEach(function(n){d[n]=val(f,n)});
+  ['name','college','branch','email'].forEach(function(n){if(!d[n])errs[n]='This field is required.'});
+  if(d.email&&!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email))errs.email='Enter a valid email address.';
+  if(d.password&&d.password.length<6)errs.password='Password must be at least 6 characters.';
+  if(!setErrs(f,errs))return;
+  api('/profile',{method:'PUT',body:{name:d.name,college:d.college,branch:d.branch,year:val(f,'year'),email:d.email,password:d.password}})
+    .then(function(){toast('Profile updated','ok');return refresh()})
+    .catch(function(e){if(e.errors)setErrs(f,e.errors);else apiError(e)});
 }
 
-async function doProfile(f){
-  var u = me(), errs = {}, d = {};
-  if (!u) return;
-  var myUid = u.id || u.uid;
-
-  ['name','college','branch','password'].forEach(function(n){ d[n] = val(f, n); });
-  ['name','college','branch'].forEach(function(n){ if (!d[n]) errs[n] = 'This field is required.'; });
-  if (d.password && d.password.length < 6) errs.password = 'Password must be at least 6 characters.';
-
-  var chosenYear = val(f, 'year') || u.year || '';
-  var allowedYears = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
-  if (chosenYear && allowedYears.indexOf(chosenYear) < 0 && ['1','2','3','4'].indexOf(chosenYear) < 0) {
-    errs.year = 'B.Tech is a 4-year course. Only 1st to 4th Year are allowed.';
-  }
-  if (!setErrs(f, errs)) return;
-
-  var btn = f.querySelector('button');
-  if (btn) { btn.disabled = true; btn.textContent = 'Saving...'; }
-
-  try {
-    if (auth.currentUser && d.name !== auth.currentUser.displayName) {
-      await auth.currentUser.updateProfile({ displayName: d.name });
+/* ---------- boot ---------- */
+var _render=render;
+render=function(){_render();
+  var p=(location.hash||'#/').slice(1).split('/').filter(Boolean)[0]||'';
+  if(p==='browse')bindBrowse();
+  if(p==='add'||p==='edit')bindItemForm();
+  if(p==='rent')bindRent();
+  if(p==='messages'){
+    var m=document.getElementById('msgs');if(m)m.scrollTop=m.scrollHeight;
+    if(activeConvo&&load(K.msgs).some(function(x){return x.convoId===activeConvo&&x.to===(me()||{}).id&&!x.read})){
+      var c=activeConvo;
+      api('/messages/read',{method:'POST',body:{convoId:c}}).then(function(){
+        DB.msgs.forEach(function(x){if(x.convoId===c&&x.to===(me()||{}).id)x.read=true});
+        document.getElementById('navlinks').innerHTML=navHtml();
+      }).catch(function(){});
     }
-    if (d.password && auth.currentUser) {
-      await auth.currentUser.updatePassword(d.password);
-    }
-
-    var formattedYear = (['1','2','3','4'].indexOf(chosenYear) > -1 ? yearLabel(parseInt(chosenYear, 10)) : chosenYear);
-
-    var profileData = {
-      name: d.name,
-      college: d.college,
-      course: 'B.Tech',
-      branch: d.branch,
-      year: formattedYear,
-      updatedAt: Date.now()
-    };
-
-    await db.collection('users').doc(myUid).set(profileData, { merge: true });
-    currentUser = Object.assign({}, currentUser, profileData);
-    state.users[myUid] = currentUser;
-    toast('Profile updated');
-    render();
-  } catch (err) {
-    console.error('Error saving profile:', err);
-    toast('Error updating profile: ' + err.message);
-    if (btn) { btn.disabled = false; btn.textContent = 'Save profile'; }
   }
-}
-
-/* ---------- Firebase Real-Time Listeners ---------- */
-var unsubs = [];
-
-function clearListeners(){
-  unsubs.forEach(function(u){ if (typeof u === 'function') u(); });
-  unsubs = [];
-  if (activeMessagesUnsub) { activeMessagesUnsub(); activeMessagesUnsub = null; }
-  currentListeningConvoId = null;
-}
-
-// Global real-time listeners for public listings and reviews
-db.collection('listings').onSnapshot(function(snapshot){
-  state.items = [];
-  snapshot.forEach(function(doc){
-    state.items.push(Object.assign({ id: doc.id }, doc.data()));
-  });
-  fetchMissingUsers(state.items.map(function(i){ return i.ownerId; }));
-  render();
-}, function(err){
-  console.warn('Listings listener error:', err);
-});
-
-db.collection('reviews').onSnapshot(function(snapshot){
-  state.reviews = [];
-  snapshot.forEach(function(doc){
-    state.reviews.push(Object.assign({ id: doc.id }, doc.data()));
-  });
-  fetchMissingUsers(state.reviews.map(function(r){ return r.userId; }));
-  render();
-}, function(err){
-  console.warn('Reviews listener error:', err);
-});
-
-// User-specific listeners (rentals, conversations, notifications)
-function initUserListeners(uid){
-  clearListeners();
-
-  // 1. Rentals where user is renter
-  var u1 = db.collection('rentals').where('renterId', '==', uid).onSnapshot(function(snap){
-    var renterRentals = [];
-    snap.forEach(function(doc){ renterRentals.push(Object.assign({ id: doc.id }, doc.data())); });
-    mergeRentals(renterRentals, 'renter');
-  }, function(e){ console.warn('Renter rentals error:', e); });
-  unsubs.push(u1);
-
-  // 2. Rentals where user is owner
-  var u2 = db.collection('rentals').where('ownerId', '==', uid).onSnapshot(function(snap){
-    var ownerRentals = [];
-    snap.forEach(function(doc){ ownerRentals.push(Object.assign({ id: doc.id }, doc.data())); });
-    mergeRentals(ownerRentals, 'owner');
-  }, function(e){ console.warn('Owner rentals error:', e); });
-  unsubs.push(u2);
-
-  // 3. User conversations
-  var u3 = db.collection('conversations').where('members', 'array-contains', uid).onSnapshot(function(snap){
-    state.conversations = [];
-    snap.forEach(function(doc){ state.conversations.push(Object.assign({ id: doc.id }, doc.data())); });
-    state.conversations.sort(function(a, b){ return (b.updatedAt || b.createdAt || 0) - (a.updatedAt || a.createdAt || 0); });
-    var otherIds = [];
-    state.conversations.forEach(function(c){
-      c.members.forEach(function(m){ if (m !== uid) otherIds.push(m); });
-    });
-    fetchMissingUsers(otherIds);
-    render();
-  }, function(e){ console.warn('Conversations listener error:', e); });
-  unsubs.push(u3);
-
-  // 4. Notifications
-  var u4 = db.collection('notifications').where('userId', '==', uid).onSnapshot(function(snap){
-    state.notifications = [];
-    snap.forEach(function(doc){ state.notifications.push(Object.assign({ id: doc.id }, doc.data())); });
-    state.notifications.sort(function(a, b){ return (b.at || b.createdAt || 0) - (a.at || a.createdAt || 0); });
-    render();
-  }, function(e){ console.warn('Notifications listener error:', e); });
-  unsubs.push(u4);
-}
-
-var _cachedRenterRentals = [];
-var _cachedOwnerRentals = [];
-
-function mergeRentals(list, type){
-  if (type === 'renter') _cachedRenterRentals = list;
-  if (type === 'owner') _cachedOwnerRentals = list;
-  var map = {};
-  _cachedRenterRentals.concat(_cachedOwnerRentals).forEach(function(r){
-    map[r.id] = r;
-  });
-  state.rentals = Object.values(map);
-  var userIds = [];
-  state.rentals.forEach(function(r){
-    userIds.push(r.renterId);
-    userIds.push(r.ownerId);
-  });
-  fetchMissingUsers(userIds);
-  render();
-}
-
-/* ---------- Firebase Auth State Observer ---------- */
-auth.onAuthStateChanged(async function(user){
-  if (user) {
-    try {
-      var userDoc = await db.collection('users').doc(user.uid).get();
-      if (userDoc.exists) {
-        currentUser = Object.assign({ uid: user.uid, id: user.uid }, userDoc.data());
-      } else {
-        currentUser = {
-          uid: user.uid,
-          id: user.uid,
-          name: user.displayName || user.email.split('@')[0],
-          email: user.email,
-          at: Date.now()
-        };
-      }
-      state.users[user.uid] = currentUser;
-      initUserListeners(user.uid);
-    } catch (e) {
-      console.error('Error fetching user profile:', e);
-      currentUser = { uid: user.uid, id: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email };
+  if(p==='dashboard'){
+    var u=me();
+    if(u&&load(K.notifs).some(function(x){return !x.read})){
+      api('/notifications/read',{method:'POST'}).then(function(){
+        DB.notifs.forEach(function(x){x.read=true});
+        var a=document.getElementById('authArea');if(a)a.innerHTML=authHtml();
+      }).catch(function(){});
     }
-  } else {
-    currentUser = null;
-    clearListeners();
-    state.rentals = [];
-    state.conversations = [];
-    state.messages = [];
-    state.notifications = [];
   }
-  render();
+};
+/* boot: show a loading skeleton, then follow the Firebase session and live data */
+document.getElementById('yr').textContent=new Date().getFullYear();
+document.getElementById('app').innerHTML=skeletonPage();
+fbAuth.onAuthStateChanged(function(){
+  startListeners().then(function(){
+    OFFLINE=false;onData();BOOTED=true;render();
+  }).catch(function(e){
+    BOOTED=true;OFFLINE=!!(e&&e.offline);render();
+    if(e&&e.message)toast(e.message,'err');
+  });
 });
-
-// Initial Render
-render();
 </script>
 </body>
 </html>
